@@ -1,0 +1,112 @@
+
+
+
+.centerHover 
+{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-top: 49vh;
+	transform: translate(-50%, 0);
+	width: 30%;
+	height: 30%;
+	background-color: transparent;
+	border-radius: 50%;
+	z-index: 2;
+	cursor: pointer;
+	text-align: center;
+	transition: all 500ms;
+	
+	&.open  {
+		opacity: 0;
+		pointer-events: none;
+	}
+	
+	&:hover span {
+		color: #DDD;
+		
+		&:before { background-color: #DDD; }
+		&:after { background-color: #DDD; }
+	}
+	
+	span {
+		color: rgb(255, 255, 255);
+		font-family: 'nasalization';
+		font-size: 18px;
+		position: relative;
+		transition: all 500ms;
+		
+		&:before {
+			content: '';
+			display: inline-block;
+			height: 0.1vh;
+			width: 0.8vw;
+			margin-right: 12px;
+			margin-bottom: 4px;
+			background-color: #666;
+			transition: all 500ms;
+		}
+		&:after {
+			content: '';
+			display: inline-block;
+			height: 0.1vh;
+			width: 0.8vw;
+			margin-left: 12px;
+			margin-bottom: 4px;
+			background-color: #666;
+			transition: all 500ms;
+		}
+	}
+}
+canvas {
+	position: absolute;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+.waiting
+{	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-left: solid 1px white;
+	border-right: solid 1px white;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.waiting_animation
+{
+    transform: opacity;
+    animation: pulse 3s infinite;
+    @keyframes pulse 
+	{
+        0% {
+            opacity: 0;
+        }
+        
+        50% {
+            opacity: 50;
+        }
+        
+        100% {
+            opacity: 0;
+        }
+    }
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) 
+{
+	.centerHover
+	{
+		width: 50%;
+	}
+	canvas
+	{
+		top: 35vh;
+		width: 90vw;
+		height: 30vh;
+	}
+
+}

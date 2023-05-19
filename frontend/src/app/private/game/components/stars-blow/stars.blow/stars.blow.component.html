@@ -1,0 +1,8 @@
+<div class="ht">
+    <div class="bdy">
+        <div id="blackhole" style="background-color: transparent;">
+        </div>
+    </div>
+</div>
+<div *ngIf="strGame" class="centerHover" (click)="playSound()"><span>START GAME</span></div>
+<div *ngIf="hide_waiting"><p class="waiting waiting_animation">SEARCHING</p> </div>

@@ -1,0 +1,16 @@
+<app-nav-bar></app-nav-bar>
+
+<div *ngIf="gameEnded == false" class="game" #game id="game">
+    <div *ngIf="notJoined" class="waitingAnimation">
+      <div class="load-wrapp">
+        <div class="load-5">
+          <div class="ring-2">
+            <div class="ball-holder">
+              <div class="ball"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<app-end-game-page *ngIf="gameEnded"> </app-end-game-page>

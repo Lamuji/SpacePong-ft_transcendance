@@ -1,0 +1,81 @@
+version: '3.8'
+services:
+  # Our NestJS Api
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+      # Only build development stage from Dockerfile
+      target: development
+    # Mount our host dir to the docker container
+    # Mount api directory (./api) to (:) docker container (/ft_transcendence/src/app)
+    # Reflect File changes from host to container
+    volumes:
+      - ./api:/ft_transcendence/src/app
+      - /ft_transcendence/src/app/node_modules
+    # RUN in debug mode: npm run start:debug --> Also start your vscode debugger
+    # Run in dev mode: npm run start:dev
+    command: npm run start:debug
+    depends_on: 
+      - postgres
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      NODE_ENV: ${NODE_ENV}
+      JWT_SECRET: ${JWT_SECRET}
+      PORT: ${PORT}
+      ENCRYPT_PASS: ${ENCRYPT_PASS}
+      ALGORITHM: ${ALGORITHM}
+      IV: ${IV}
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 9229:9229
+  
+  # Our Angular Frontend
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+      target: development
+    command: npm run start
+    volumes:
+      - ./frontend:/ft_transcendence/frontend/src/app
+      - /ft_transcendence/frontend/src/app/node_modules
+    env_file:
+      - .env
+    environment:
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      REDIRECT_URI: ${REDIRECT_URI}
+      GRANT_TYPE: ${GRANT_TYPE}
+    ports:
+      - 4200:4200
+    links:
+      - api
+
+  # Our Postgres Database for NestJS to connect to
+  postgres:
+    image: postgres:15.1
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 35000:5432
+
+  # # The Postgres Admin tool if we want to run some custom queries and so on against our Database
+  # postgres_admin:
+  #   image: dpage/pgadmin4:6.19
+  #   depends_on:
+  #     - postgres
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+  #   ports:
+  #     - 5050:80

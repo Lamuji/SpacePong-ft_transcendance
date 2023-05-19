@@ -1,0 +1,200 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: baseline;
+    box-shadow: 23px 0px 31px rgb(0 0 0 / 25%);
+    backdrop-filter: blur(4.5px);
+    margin-left: 130px;
+    margin-right: 50px;
+    //width: 75vw;
+    height: 80vh;
+    overflow: hidden; // eviter les depassement de div par rapport a sa div parent selon taille de la fenetre
+}
+
+.friend-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow: auto;
+}
+
+h1 {
+  padding-right: 10px;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  overflow: auto;
+  padding-bottom: 2em;
+}
+
+img {
+  width: 30px;
+  border-radius: 50%;
+}
+
+hr {
+  width: 100%;
+  position: absolute;
+  margin-top:80px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-family: 'nasalization';
+    border: solid;
+    border-block-width: 1px;
+    font-size: xx-large;
+    padding: 15px;
+    border-width: thin;
+}
+
+p {
+font-size: 20px;
+font-family: 'nasalization';
+color: whitesmoke;
+margin-top: 100px;
+align-self: center;
+}
+
+input {
+  display: flex;
+  width: 95%;
+  margin-top: 30px;
+  border: none;
+  opacity: 25%;
+  font-size: x-large;
+  background-color: transparent;
+  border-radius: 3px;
+  color: white;
+}
+
+::placeholder {
+  font-size: 0.8em;
+  color: whitesmoke;
+}
+
+.friendSuggestion {
+  color: red;
+}
+
+.main {
+  width: 100%;
+	margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap; /* retour à la ligne des éléments */
+  overflow-y: auto; /* affichage d'une scrollbar si nécessaire */
+}
+
+.main ul {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+	z-index: 999;
+	list-style: none;
+}
+
+.main li {
+	display: flex;
+	align-items: center;
+	margin-bottom:10px;
+  flex-basis: 20%;
+  font-family: 'nasalization';
+	//background-color: grey;
+}
+
+.main li:hover {
+	background: #2b2d31;
+	transition: 0.1s ease-in-out;
+}
+
+.main img {
+	width: 80px;
+	height: 80px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+/* CSS pour les éléments du menu */
+
+.context-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2f3136;
+  //color:#2b2d31;
+  border: 1px solid #4f545c;
+  border-radius: 3px;
+  padding: 5px;
+  z-index: 1;
+}
+
+/* CSS pour les éléments du menu */
+.context-menu button {
+  display: flex;
+  align-items:flex-start;
+  border: 1px solid #4f545c;
+  border-radius: 3px;
+  color: white;
+  background-color: #2b2d31;
+  font-family: 'nasalization';
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.context-menu button:hover {
+  background-color: #40444b;
+}
+
+.context-menu button:not(:first-child) {
+  border-top: 1px solid #4f545c;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.connected {
+	content: "";
+	width: 12px;
+	height: 12px;
+	background-color: #00ff00;
+	border-radius: 50%;
+	margin-left: -25px;
+	margin-top: 45px;
+  }
+
+  .notConnected {
+	content: "";
+	//display: inline-block;
+	width: 12px;
+	height: 12px;
+	background-color: grey;
+	border-radius: 50%;
+	margin-left: -25px;
+	margin-top: 45px;
+  }
+
+.profilPic{
+    border-radius: 50%;
+}
+
+.inGame {
+	position: absolute;
+	margin-top: 100px;
+	margin-left: 20px;
+}

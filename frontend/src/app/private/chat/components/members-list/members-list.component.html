@@ -1,0 +1,40 @@
+
+<app-member-option
+  *ngIf="showOverlay"
+  [style.left.px]="overlayPosition.left"
+  [style.top.px]="overlayPosition.top"
+  [selectedUser]="selectedUserInput"
+  class="overlay"
+  (valueChanged)="onValueChanged($event)"
+  (divHeight)="divHeight($event)"
+  #option
+></app-member-option>
+
+<div class="header">
+	<h1 class="title">Members</h1>
+	<div class="separator"></div>
+</div>
+<div class="main"  >
+	<ul>
+		<li *ngFor="let user of users; let i = index" class="list" (click)="getElementPosition(i, $event)"
+		(click)="select()"
+		(mousedown)="isClicked = true"
+		(mousedown)="selectedUser = user"
+		(mouseup)="isClicked = false"
+		(mouseleave)="isClicked = false"
+		[ngStyle]="{ 'background-color': selectedUser === user && isClicked ? 'rgba(217, 217, 217, 0.25)' : '',
+		'transition': selectedUser === user && !isClicked ?'ease-in 0.1s': '' }"
+		[ngClass]="{'selected': selectedUser === user}">
+		<img class="userProfile" *ngIf="user.profilPic" [src]="hostname + user.profilPic" alt="astronaut" alt="profilePicture">
+    	<img class="userProfile" *ngIf="!user.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut">
+		<!-- <img src="../../../../../assets/images/icons8-star-50.png" class="image" *ngIf="chatservice.selectedRoom.owner.id === user.id"> -->
+		<!-- <img src="../../../../../assets/images/icons8-star-half-50.png" class="image" > -->
+		<!-- <div class="connected" [ngStyle]="{'background-color': !connected ? 'grey' : ''}"></div> -->
+		<div class="connected" *ngIf="user.isConnected === true"></div>
+		<div class="notConnected" *ngIf="user.isConnected === false"></div>
+		<div class="name">
+			{{ user.username }}
+		</div>
+	</li>
+</ul>
+</div>

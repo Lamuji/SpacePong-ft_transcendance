@@ -1,0 +1,55 @@
+<app-nav-bar></app-nav-bar>
+<div class="general">
+  <div class="container">
+    <div class="block" *ngIf="(user$ | async) as user">
+		<h1>{{ user.username}}</h1>
+      <img class="profile" *ngIf="user.profilPic" [src]="hostname + user.profilPic" alt="astronaut">
+		<img class="profile" *ngIf="!user.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut">
+		<div class="connected" *ngIf="toto && toto.isConnected === true"></div>
+		<div class="inGame" *ngIf="toto && toto.inGame === true">In Game</div>
+		  <div class="notConnected" *ngIf="toto && toto.isConnected === false"></div>
+      <label>Level {{ user.level}}</label>
+      <progress max="100" value="50">
+        50%</progress>
+        <div><img src="../../../../../assets/images/master-chief.png" alt="badge" class="badge"></div>
+      </div>
+      <div class="block">
+        <h1>STATISTIC</h1>
+        <div class="row">
+          <div class="col">
+            <h2>VICTORY</h2>
+            <p>{{win}}</p>
+          </div>
+          <div class="col">
+            <h2>LOSS</h2>
+            <p>{{loss}}</p>
+          </div>
+        </div>
+        <div class="circle">
+          <circle-progress
+          [radius]="80"
+          [outerStrokeColor]="'#39A78E'"
+          [innerStrokeColor]="'#FE7C73'"
+          [animation]="true"
+          [animationDuration]="300"
+          [percent]="ratio"
+          ></circle-progress>
+        </div>
+    </div>
+    <div class="block" *ngIf="user$ | async as user">
+      <h1>HISTORY</h1>
+      <table *ngIf="user.history?.length > 0; else message">
+        <tbody>
+          <ng-container *ngIf="opponents$ | async as opponents">
+          <tr *ngFor="let match of history; let i = index" >
+            <td>{{ user.username }}</td>
+            <td [ngClass]="{'red': !match.won, 'green': match.won}" >{{ match.won? 'V' : 'D' }}</td>
+            <td>{{ opponents[i]?.username || 'Unknown' }}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+      <ng-template #message>No matches found.</ng-template>
+    </div>
+  </div>
+</div>

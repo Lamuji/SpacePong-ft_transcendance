@@ -1,0 +1,50 @@
+<app-nav-bar></app-nav-bar>
+<div class="container">
+  <div class="profil" *ngIf="(user$ | async) as user">
+    <h1>Profil</h1>
+    <!-- <img *ngIf="user.profilPic" [src]="hostname + user.profilPic" alt="profilePicture">
+    <img class="profilPic" *ngIf="!user.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut"> -->
+    <p>Set new profile image</p>
+    <app-avatar (avatarUpdated)="updateAvatar()"></app-avatar>
+    <button (click)="changeUsername()">Change username</button>
+	<button (click)="goTo2FA()">Manage 2FA</button>
+    <div class="username-popup" *ngIf="usernamePopup">
+      <button class="close-btn" (click)="close()">X</button>
+      <h1>Please enter new username</h1>
+      <input type="text" placeholder="NEW USERNAME" [(ngModel)]="newO" >
+      <button class="changes"[disabled]="!newO || newO.length > 8"  (click)="closePopup(newO)">SAVE CHANGES</button>
+    </div>
+  </div>
+  <div class="skin" >
+    <h1>Skin</h1>
+
+    <div class="ball">
+      <div class="ball_skin_container">
+        <div class="scrolable-content">
+          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/jupiter.png">
+          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/planet-red.png">
+          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/planet.png">
+          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/pluto.png">
+          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/neptune.png">
+          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/earth.png">
+        </div>
+      </div>
+      <ngx-colors ngx-colors-trigger [(ngModel)]="colorBall" (ngModelChange)="onColorBallChange($event)"></ngx-colors>
+    </div>
+
+    <div class="paddle">
+      <div ngx-colors-trigger [(ngModel)]="colorPad" [style.background-color]="colorPad" (ngModelChange)="onPaddleColorChange($event)" class="paddle_color_container"></div>
+      <div class="paddle_skin_container">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/black_star.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/halo.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/New Project.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/orangePaddle.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/rose_tapette.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/spacePong.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/stars.png">
+        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/whiteP.png">
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+#main-div
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    font-family: 'nasalization';
+    overflow-y: none;
+}
+.row 
+{
+    margin-bottom: 0;
+}
+//----------------------------//
+
+#gameContainer
+{
+    position: absolute;
+    // background-color: red;
+    height: 90vh;
+    width: calc(100% - 100px);
+    margin-left: 100px;
+    margin-top: 90vh;
+    backdrop-filter: blur(4.5px);
+    z-index: -1;
+}
+.playBotScene
+{
+    z-index: 99;
+    margin-top: 70vh;
+    font-family: "nasalization";
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 5s ease-out;
+}
+
+.playBotScene:hover
+{
+    background-color: rgb(255, 255, 255, 0.3);
+}
+
+
+
+

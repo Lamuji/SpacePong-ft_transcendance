@@ -1,0 +1,197 @@
+
+.dashboard {
+	position: absolute;
+	top: 0;
+	display: flex;
+	justify-content: flex-start;
+	width: 99vw;
+	height: 98vh;
+}
+
+.chat-selector {
+	margin-top: 95px;
+	z-index: 99;
+	width: 300px;
+	min-height: 300px;
+	margin-left: 120px;
+	//background-color: black; //to be deleted
+	backdrop-filter: blur(4.5px);
+	box-shadow: 23px 0px 31px rgba(0, 0, 0, 0.25);
+	flex-shrink: 0;
+	overflow-x: visible;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.title {
+	display: flex;
+	justify-content: center;
+	font-family: 'nasalization';
+	font-size: 30px;
+	color: white;
+	margin-top: 10px;
+	cursor: 	default;
+	user-select: none;
+}
+
+.separator {
+	content: '';
+	position: absolute;
+	top: 60px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 150px;
+	height: 1px;
+	background-color: white;
+}
+
+
+.conversation {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: -99;
+}
+
+.messages {
+	margin-top: 95px;
+	min-height: 300px;
+	width: 100%;
+	min-width: 300px;
+	margin-left: 20px;
+	//background-color: black; //to be deleted
+	backdrop-filter: blur(4.5px);
+	box-shadow: 23px 0px 31px rgba(0, 0, 0, 0.25);
+}
+
+.search-container {
+	display: flex;
+	align-items: center;
+	height: 40px;
+	margin-top: 45px;
+	margin-left: 8%;
+	margin-right: 8%;
+	padding-left: 5px;
+	border-radius: 3px; 
+	background: rgba(217, 217, 217, 0.25);
+	cursor: pointer;
+	color: #989aa2;
+}
+
+.search-container label {
+	cursor: pointer;
+	user-select: none;
+}
+
+.create-container {
+	width: 90%;
+	display: flex;
+	gap: 90px;
+	margin-left: 25px;
+	margin-top: 15px;
+	color: #989aa2;
+	user-select: none;
+	cursor: pointer;
+	//padding: 5px;
+}
+
+.create-container:hover {
+	color: white;
+	transition: ease-in-out 0.1s;
+}
+
+.create-container div {
+	font-size: 25px;
+	margin-top: -2.5px;
+	cursor: pointer;
+}
+.create-container label {
+	cursor: pointer;
+}
+
+.createChannel {
+	z-index: 999999;
+	//overflow-x: visible;
+	//position: absolute;
+}
+
+.overlay {
+	z-index: 9999;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6); /* Couleur foncée semi-transparente */
+  }
+
+.users {
+	margin-top: 95px;
+	min-width: 300px;
+	//height: 100%;
+	//background: black;
+	margin-left: 20px;
+	backdrop-filter: blur(4.5px);
+	box-shadow: 23px 0px 31px rgba(0, 0, 0, 0.25);
+}
+
+// div {
+// 	//background-color: #110720;
+// }
+
+// body {
+// 	//background-color:#110720;
+// 	width: 100%;
+// }
+
+// .html {
+// 	//background-color: #110720;
+// }
+
+
+
+// .container {
+// 	display: flex;
+// 	justify-content: center;
+
+// 	mat-card {
+// 		position: fixed;
+// 		margin: 20px;
+
+// 		.rooms {
+// 			height: 500px;
+// 			width: 250;
+// 			overflow-y: scroll;
+// 			scrollbar-color: lightgrey darkgrey; 
+// 			scrollbar-width: thin;
+// 		}
+// 		.chatroom {
+// 			margin-left: 40px;
+// 			width: 600px;
+// 		}
+// 	}
+// }
+
+// ::-webkit-scrollbar-track {
+// 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+// 	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+// 	border-radius: 10px;
+// 	background-color: lightgray;
+// }
+
+// ::-webkit-scrollbar {
+// 	width: 12px;
+// 	background-color: lightgray;
+// }
+
+// ::-webkit-scrollbar-thumb {
+// 	border-radius: 10px;
+// 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+// 	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+// 	background-color: lightgray;
+// }

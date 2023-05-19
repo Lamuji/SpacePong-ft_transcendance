@@ -1,0 +1,33 @@
+<app-nav-bar></app-nav-bar>
+<div class="dashboard">
+
+	<div class="chat-selector">
+		<div class="main">
+			<h1 *ngIf="dashService.channel" class="title">Chat</h1>
+			<div class="separator"></div>
+		</div>
+		<div class="search-container">
+			<label *ngIf="dashService.channel">Find a Conversation</label>
+			<label *ngIf="!dashService.channel">Find a User</label>
+		</div>
+		<div class="create-container" *ngIf="dashService.channel">
+			<label>Create new Channel</label>
+			<div class="add">+</div>
+		</div>
+		<div *ngIf="dashService.create" class="createChannel">
+			<app-create-channel></app-create-channel>
+		</div>
+		<div class="conversation">
+			<app-conversation-list></app-conversation-list>
+		</div>
+	</div>
+	<div class="messages">
+		<app-messages></app-messages>
+	</div>
+	<div *ngIf="dashService.members" class="users">
+		<app-members-list></app-members-list>
+	</div>
+</div>
+<app-find-channel *ngIf="dashService.find" class="findChannel"></app-find-channel>
+<app-check-pass *ngIf="dashService.checkPass" class="checkPass"></app-check-pass>
+<div *ngIf="dashService.find || dashService.checkPass" class="overlay"></div>
