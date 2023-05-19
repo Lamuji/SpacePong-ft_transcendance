@@ -1,6 +1,6 @@
 # Space Pong
 
-Space Pong is a full-fledged web application that allows users to play pong online with other players. The project leverages modern technologies such as Angular, TypeScript, HTML/CSS/SASS, Phaser, Colyseus, PostgreSQL, TypeORM, NestJS, Docker, and Git to deliver an immersive gaming experience.
+Space Pong is a full-fledged web application that allows users to play pong online with other players. The project leverages modern technologies such as **Angular, TypeScript, HTML/CSS/SASS, Phaser, Colyseus, PostgreSQL, TypeORM, NestJS, Docker**, and Git to deliver an immersive gaming experience.
 
 ## **Features**
 
