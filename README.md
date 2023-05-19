@@ -4,35 +4,35 @@ Space Pong is a full-fledged web application that allows users to play pong onli
 
 ## **Features**
 
-* Secure Authentication: Space Pong implements a robust JWT-based authentication system with optional two-factor authentication (2FA), ensuring the security of user accounts.
+* **Secure Authentication** : Space Pong implements a robust JWT-based authentication system with optional two-factor authentication (2FA), ensuring the security of user accounts.
 
-* Real-time Chat: Users can communicate with each other using the integrated chat feature, creating a lively and engaging environment.
+* **Real-time Chat** : Users can communicate with each other using the integrated chat feature, creating a lively and engaging environment.
 
-* Private Messaging: Space Pong enables private messaging between users, facilitating direct communication and fostering a sense of community.
+* **Private Messaging** : Space Pong enables private messaging between users, facilitating direct communication and fostering a sense of community.
 
-* Friends List: Users can build their network by adding friends, allowing them to easily connect and compete with each other.
+* **Friends List** : Users can build their network by adding friends, allowing them to easily connect and compete with each other.
 
-* User Profiles: Each player has a dedicated profile page where they can showcase their achievements, game statistics, and personal information.
+* **User Profiles** : Each player has a dedicated profile page where they can showcase their achievements, game statistics, and personal information.
 
-* Matchmaking: The game provides a sophisticated matchmaking system that pairs players of similar skill levels, ensuring fair and challenging matches.
+* **Matchmaking** : The game provides a sophisticated matchmaking system that pairs players of similar skill levels, ensuring fair and challenging matches.
 
-* Spectator Mode: Users can spectate ongoing matches, allowing them to observe and learn from other players' gameplay strategies.
+* **Spectator Mode** : Users can spectate ongoing matches, allowing them to observe and learn from other players' gameplay strategies.
 
-* Customization Options: Space Pong offers a range of customization options, allowing users to personalize various elements of the game, such as the background, racket textures, and ball appearance.
+* **Customization Options** : Space Pong offers a range of customization options, allowing users to personalize various elements of the game, such as the background, racket textures, and ball appearance.
 
 ## **Technologies Used**
 
 **The project incorporates the following technologies**:
 
-* **Angular**: A powerful framework for building scalable web applications.
-* **TypeScript**: A statically typed superset of JavaScript that enhances code maintainability and reliability.
-* **HTML/CSS/SASS**: Standard web technologies for structuring and styling the user interface.
-* **Phaser**: A popular game development framework used for creating rich and interactive game experiences.
-* **Colyseus**: A multiplayer game server that facilitates real-time communication between players.
-* **PostgreSQL**: A robust and open-source relational database management system for data storage.
-* **TypeORM**: An object-relational mapping (ORM) library for TypeScript and JavaScript, simplifying database interactions.
-* **NestJS**: A progressive Node.js framework that provides a solid foundation for building scalable server-side applications.
-* **Docker**: A containerization platform that ensures consistency and portability across different environments.
+* **Angular** : A powerful framework for building scalable web applications.
+* **TypeScript** : A statically typed superset of JavaScript that enhances code maintainability and reliability.
+* **HTML/CSS/SASS** : Standard web technologies for structuring and styling the user interface.
+* **Phaser** : A popular game development framework used for creating rich and interactive game experiences.
+* **Colyseus** : A multiplayer game server that facilitates real-time communication between players.
+* **PostgreSQL** : A robust and open-source relational database management system for data storage.
+* **TypeORM** : An object-relational mapping (ORM) library for TypeScript and JavaScript, simplifying database interactions.
+* **NestJS** : A progressive Node.js framework that provides a solid foundation for building scalable server-side applications.
+* **Docker** : A containerization platform that ensures consistency and portability across different environments.
 
 ## **Getting Started**
 
