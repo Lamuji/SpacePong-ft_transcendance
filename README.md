@@ -44,7 +44,7 @@ Space Pong is a full-fledged web application that allows users to play pong onli
 4. Open a terminal and run the following command ```docker-compose up --build```
 6. Access Space Pong in your web browser at http://localhost:4200.
 
-For detailed instructions and additional setup options, please refer to the project's documentation.
+For detailed instructions and additional setup options use your brain and do more research.
 
 ## **Contributing**
 Contributions to Space Pong are welcome and encouraged! If you would like to contribute, please send me a message on dupontj335@gmail.com
