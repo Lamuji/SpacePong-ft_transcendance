@@ -38,7 +38,7 @@ Space Pong is a full-fledged web application that allows users to play pong onli
 
 **To run Space Pong locally, follow these steps**:
 
-1. Clone the repository: git clone https://github.com/your-username/space-pong.git.
+1. Clone the repository: ```git clone [ https://github.com/your-username/space-pong.git](https://github.com/demogam1/space_pong) ```.
 2. Install docker
 3. Go in the folder that you have cloned
 4. Open a terminal and run the following command ```docker-compose up --build```
