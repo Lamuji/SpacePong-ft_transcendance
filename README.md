@@ -52,7 +52,7 @@ Contributions to Space Pong are welcome and encouraged! If you would like to con
 ## **License**
 Space Pong is released under the MIT License. Feel free to use, modify, and distribute the code as per the terms of the license.
 
-##**Acknowledgements**
+## **Acknowledgements**
 
 We would like to express our gratitude to the open-source community for providing valuable tools and libraries that made this project possible.
 Special thanks to our dedicated team of contributors for their efforts in developing and refining Space Pong.
