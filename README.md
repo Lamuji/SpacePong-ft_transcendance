@@ -24,15 +24,15 @@ Space Pong is a full-fledged web application that allows users to play pong onli
 
 **The project incorporates the following technologies**:
 
-* Angular: A powerful framework for building scalable web applications.
-* TypeScript: A statically typed superset of JavaScript that enhances code maintainability and reliability.
-* HTML/CSS/SASS: Standard web technologies for structuring and styling the user interface.
-* Phaser: A popular game development framework used for creating rich and interactive game experiences.
-* Colyseus: A multiplayer game server that facilitates real-time communication between players.
-* PostgreSQL: A robust and open-source relational database management system for data storage.
-* TypeORM: An object-relational mapping (ORM) library for TypeScript and JavaScript, simplifying database interactions.
-* NestJS: A progressive Node.js framework that provides a solid foundation for building scalable server-side applications.
-* Docker: A containerization platform that ensures consistency and portability across different environments.
+* **Angular**: A powerful framework for building scalable web applications.
+* **TypeScript**: A statically typed superset of JavaScript that enhances code maintainability and reliability.
+* **HTML/CSS/SASS**: Standard web technologies for structuring and styling the user interface.
+* **Phaser**: A popular game development framework used for creating rich and interactive game experiences.
+* **Colyseus**: A multiplayer game server that facilitates real-time communication between players.
+* **PostgreSQL**: A robust and open-source relational database management system for data storage.
+* **TypeORM**: An object-relational mapping (ORM) library for TypeScript and JavaScript, simplifying database interactions.
+* **NestJS**: A progressive Node.js framework that provides a solid foundation for building scalable server-side applications.
+* **Docker**: A containerization platform that ensures consistency and portability across different environments.
 
 ## **Getting Started**
 
