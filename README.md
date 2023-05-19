@@ -2,7 +2,7 @@
 
 Space Pong is a full-fledged web application that allows users to play pong online with other players. The project leverages modern technologies such as Angular, TypeScript, HTML/CSS/SASS, Phaser, Colyseus, PostgreSQL, TypeORM, NestJS, Docker, and Git to deliver an immersive gaming experience.
 
-## ** Features **
+## **Features**
 
 *Secure Authentication: Space Pong implements a robust JWT-based authentication system with optional two-factor authentication (2FA), ensuring the security of user accounts.
 
