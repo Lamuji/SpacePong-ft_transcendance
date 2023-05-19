@@ -38,12 +38,11 @@ Space Pong is a full-fledged web application that allows users to play pong onli
 
 **To run Space Pong locally, follow these steps**:
 
-1.Clone the repository: git clone https://github.com/your-username/space-pong.git.
-2.Install the necessary dependencies using your package manager of choice.
-3.Configure the PostgreSQL database connection in the project's configuration files.
-4.Build and start the server-side application using NestJS.
-5.Build and run the client-side application using Angular.
-6.Access Space Pong in your web browser at http://localhost:3000.
+1. Clone the repository: git clone https://github.com/your-username/space-pong.git.
+2. Install docker
+3. Go in the folder that you have cloned
+4. Open a terminal and run the following command ```docker-compose up --build```
+6. Access Space Pong in your web browser at http://localhost:4200.
 
 For detailed instructions and additional setup options, please refer to the project's documentation.
 
