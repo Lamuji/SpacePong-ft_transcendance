@@ -1,0 +1,70 @@
+// Button component styles - SpacePong Design System
+
+.btn {
+  // Base styles are inherited from design-system.scss
+  
+  // Size variants
+  &.btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-md);
+  }
+  
+  &.btn-md {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+    border-radius: var(--radius-lg);
+  }
+  
+  &.btn-lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+    border-radius: var(--radius-xl);
+  }
+  
+  // Danger variant
+  &.btn-danger {
+    background: linear-gradient(135deg, #ff4757, #ff6b7a);
+    color: var(--text-primary);
+    box-shadow: 0 0 30px rgba(255, 71, 87, 0.6);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 40px rgba(255, 71, 87, 0.8);
+    }
+  }
+  
+  // Loading state
+  &.loading {
+    position: relative;
+    color: transparent !important;
+    
+    .loader-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .btn {
+    &.btn-lg {
+      padding: var(--space-3) var(--space-6);
+      font-size: var(--font-size-base);
+    }
+  }
+}

@@ -1,13 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-/*
-html5doctor.com Reset Stylesheet
-v1.6.1
-Last Updated: 2010-09-17
-Author: Richard Clark - http://richclarkdesign.com
-Twitter: @rich_clark
-*/
+/* SpacePong Global Styles */
 
+// Import Design System first
+@import './styles/design-system.scss';
+
+// Import Angular Material theme
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Import Google Fonts for secondary typography
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap');
+
+@font-face {
+  font-family: 'nasalization';
+  src: url(./assets/font/nasalization-rg.ttf);
+}
+
+/*
+html5doctor.com Reset Stylesheet - Modified for SpacePong
+v1.6.1 - Enhanced with modern CSS practices
+*/
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -30,17 +40,63 @@ time, mark, audio, video {
 	text-decoration: none;
 }
 
-a {
-	text-decoration: none;
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 body {
-	line-height:1;
-	background-color: #110720;
-	font-family: Arial, sans-serif;
-	color: white;
+  line-height: 1.6;
+  font-family: var(--font-family-primary);
+  background: var(--bg-gradient-primary);
+  color: var(--text-primary);
   text-align: -webkit-center;
+  overflow-x: hidden;
+  
+  // Add space particles background
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, var(--neon-cyan), transparent),
+      radial-gradient(2px 2px at 40px 70px, var(--neon-purple), transparent),
+      radial-gradient(1px 1px at 90px 40px, var(--neon-blue), transparent),
+      radial-gradient(1px 1px at 130px 80px, var(--neon-pink), transparent),
+      radial-gradient(2px 2px at 160px 30px, var(--neon-green), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px;
+    opacity: 0.1;
+    z-index: -1;
+    animation: twinkle 10s linear infinite;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+a {
+  margin:0;
+  padding:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+  text-decoration: none;
+  color: var(--text-accent);
+  transition: color var(--transition-normal);
+  
+  &:hover {
+    color: var(--neon-purple);
+  }
 }
 
 article,aside,details,figcaption,figure,
@@ -62,36 +118,44 @@ q:before, q:after {
   content:none;
 }
 
-a {
-  margin:0;
-  padding:0;
-  font-size:100%;
-  vertical-align:baseline;
-  background:transparent;
-  text-decoration: none;
+/* Enhanced typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-primary);
+  line-height: 1.2;
+  margin-bottom: var(--space-2);
+  color: var(--text-primary);
 }
 
-/* change colours to suit your needs */
+p {
+  margin-bottom: var(--space-4);
+  color: var(--text-secondary);
+}
+
+/* Enhanced visual elements */
 ins {
-  background-color:#ff9;
-  color:#000;
+  background-color: var(--neon-green);
+  color: var(--space-dark);
   text-decoration:none;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
 }
 
-/* change colours to suit your needs */
 mark {
-  background-color:#ff9;
-  color:#000;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  color: var(--space-dark);
   font-style:italic;
   font-weight:bold;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
 }
 
 del {
   text-decoration: line-through;
+  opacity: 0.7;
 }
 
 abbr[title], dfn[title] {
-  border-bottom:1px dotted;
+  border-bottom:1px dotted var(--text-accent);
   cursor:help;
 }
 
@@ -100,12 +164,11 @@ table {
   border-spacing:0;
 }
 
-/* change border colour to suit your needs */
 hr {
   display:block;
   height:1px;
   border:0;
-  border-top:1px solid #ffffff;
+  border-top:1px solid var(--glass-border);
   margin:1em 0;
   padding:0;
 }
@@ -113,7 +176,50 @@ hr {
 input, select {
   vertical-align:middle;
 }
-@font-face {
-  font-family: 'nasalization';
-  src: url(./assets/font/nasalization-rg.ttf);
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--space-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--space-accent), var(--space-bright));
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--space-bright), var(--neon-purple));
+}
+
+// Selection styles
+::selection {
+  background: var(--neon-cyan);
+  color: var(--space-dark);
+}
+
+// Focus styles for accessibility
+:focus {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+// Responsive typography
+@media (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
 }
