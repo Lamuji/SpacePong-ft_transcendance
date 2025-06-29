@@ -1,4 +1,14 @@
-<form (ngSubmit)="uploadFile()">
-  <input type="file" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" (change)="onFileSelected()">
-  <button type="submit">Télécharger</button>
-</form>
+<div class="avatar-upload-container">
+  <form (ngSubmit)="uploadFile()" class="avatar-form">
+    <div class="file-input-wrapper">
+      <input type="file" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" (change)="onFileSelected()" class="file-input">
+      <label for="fileUpload" class="file-input-label">
+        <span class="file-input-icon">📸</span>
+        <span class="file-input-text">Choisir une image</span>
+      </label>
+    </div>
+    <app-button type="submit" variant="primary" size="md" [disabled]="!file.data">
+      Télécharger
+    </app-button>
+  </form>
+</div>

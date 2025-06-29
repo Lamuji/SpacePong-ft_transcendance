@@ -1,26 +1,89 @@
-<div class="main" [ngClass]="{'mainBis': !dashService.channel}">
-		<ul>
-			<li *ngFor="let room of rooms" class="list"
-			(click)="message(room)"
-			(mousedown)="isClicked = true"
-			(mousedown)="chatService.selectedRoomId= room.id"
-			(mouseup)="isClicked = false"
-			(mouseleave)="isClicked = false"
-			[ngStyle]="{ 'background-color': chatService.selectedRoomId === room.id && isClicked ? 'rgba(217, 217, 217, 0.25)' : '',
-			'transition': chatService.selectedRoomId === room.id && !isClicked ?'ease-in 0.1s': '' }"
-			[ngClass]="{'selected': chatService.selectedRoomId === room.id}"
-			>
-			<img class="imgP" [src]="hostname + room.users[0].profilPic" *ngIf="room.privateMessage && currentUser.id !== room.users[0].id && room.users[0].profilPic">
-			<img class="imgP" [src]="hostname + room.users[1].profilPic" *ngIf="room.privateMessage && currentUser.id !== room.users[1].id && room.users[1].profilPic">
-			<img class="imgP" src="../../../../../assets/images/astronaut.png" *ngIf="room.privateMessage && currentUser.id !== room.users[0].id && !room.users[0].profilPic">
-			<img class="imgP" src="../../../../../assets/images/astronaut.png" *ngIf="room.privateMessage && currentUser.id !== room.users[1].id && !room.users[1].profilPic">
-			<img class="imgG" src="../../../../../../assets/images/src.png" *ngIf="!room.privateMessage">
-			<div class="connected" *ngIf="room.privateMessage && room.isConnected === true"></div>
-			<div class="notConnected" *ngIf="room.privateMessage && room.isConnected === false"></div>
-			<!-- <div class="name" class="name" [ngClass]="{'isuser': room.privateMessage}"> -->
-			<div class="name" class="name">
-				{{ room.name }}
-			</div>
-		</li>
-	</ul>
+<div class="conversation-list">
+  <div class="conversations-wrapper" [class.user-mode]="!dashService.channel">
+    
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!rooms || rooms.length === 0">
+      <div class="empty-icon">💬</div>
+      <h3 class="empty-title">No {{ dashService.channel ? 'conversations' : 'users' }} yet</h3>
+      <p class="empty-description">
+        {{ dashService.channel ? 'Start chatting by creating a new channel!' : 'Find friends to start conversations.' }}
+      </p>
+    </div>
+
+    <!-- Conversation List -->
+    <div class="conversation-items" *ngIf="rooms && rooms.length > 0">
+      <div 
+        *ngFor="let room of rooms; trackBy: trackByRoomId" 
+        class="conversation-item"
+        [class.active]="chatService.selectedRoomId === room.id"
+        [class.private]="room.privateMessage"
+        [class.unread]="room.unreadCount > 0"
+        (click)="selectConversation(room)"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="'Select conversation with ' + room.name">
+        
+        <!-- Avatar -->
+        <div class="conversation-avatar">
+          <!-- Private Message Avatar -->
+          <img 
+            *ngIf="room.privateMessage && getOtherUser(room)?.profilPic"
+            [src]="hostname + getOtherUser(room)?.profilPic" 
+            [alt]="getOtherUser(room)?.username + ' avatar'"
+            class="avatar-image"
+            loading="lazy">
+          
+          <!-- Default Private Avatar -->
+          <img 
+            *ngIf="room.privateMessage && !getOtherUser(room)?.profilPic"
+            [src]="hostname + 'astronaut.png'" 
+            [alt]="getOtherUser(room)?.username + ' avatar'"
+            class="avatar-image"
+            loading="lazy">
+          
+          <!-- Group Channel Avatar -->
+          <div *ngIf="!room.privateMessage" class="group-avatar">
+            <i class="group-icon">👥</i>
+          </div>
+          
+          <!-- Online Status Indicator -->
+          <div 
+            *ngIf="room.privateMessage" 
+            class="status-indicator"
+            [class.online]="room.isConnected"
+            [class.offline]="!room.isConnected">
+          </div>
+        </div>
+
+        <!-- Conversation Info -->
+        <div class="conversation-info">
+          <div class="conversation-header">
+            <h4 class="conversation-name">{{ getConversationName(room) }}</h4>
+            <span class="conversation-time">
+              {{ formatTime(room.updated_at || room.created_at) }}
+            </span>
+          </div>
+          
+          <div class="conversation-preview">
+            <span class="preview-text">{{ getLastMessagePreview(room) }}</span>
+          </div>
+          
+          <div class="conversation-meta" *ngIf="!room.privateMessage">
+            <span class="member-count">{{ room.users?.length || 0 }} membres</span>
+            <span *ngIf="room.isPrivate" class="private-indicator">🔒</span>
+          </div>
+        </div>
+
+        <!-- Action Menu -->
+        <div class="conversation-actions">
+          <button 
+            class="action-menu-btn"
+            [attr.aria-label]="'More actions for ' + getConversationName(room)"
+            (click)="openActionMenu($event, room)">
+            ⋮
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

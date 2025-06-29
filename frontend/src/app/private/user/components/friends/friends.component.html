@@ -1,53 +1,132 @@
 <app-nav-bar></app-nav-bar>
-<div class="container" (click)="closeContextMenu()">
-  <div class="search">
-    <div class="title">
-      <h1>Chercher</h1>
-      <img src="../../../../../assets/images/icons8-telescope-100_1.png" alt="icons8-telescope-100_1">
-    </div>
-    <hr>
-    <input type="text" [(ngModel)]="searchTerm"  (ngModelChange)="searchUsers()" placeholder="Rechercher des utilisateurs">
-    <div class="main">
-      <div class="suggestions" *ngIf="filteredUsers.length > 0">
-        <ul>
-          <li *ngFor="let user of filteredUsers" (contextmenu)="onContextMenu($event, user)">
-			<div class="inGame" *ngIf="user.inGame === true">In Game</div>
-			  <img class="profilPic" *ngIf="user.profilPic" [src]="hostname + user.profilPic" alt="profilePicture">
-            <img class="profile" *ngIf="!user.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut">
-			  <div class="connected" *ngIf="user.isConnected === true"></div>
-				<div class="notConnected" *ngIf="user.isConnected === false"></div>
-								{{user.username}}
-          </li>
-        </ul>
-      </div>
-    </div>
+<div class="main-layout">
+  <div class="main-layout-content">
+    <div class="friends-page" (click)="closeContextMenu()">
+  <div class="page-header">
+    <h1 class="page-title gradient-text">Découvrir & Amis</h1>
   </div>
-  <div class="friend-list">
-    <div class="title">
-      <h1>Amis</h1>
-      <img src="../../../../../assets/images/src.png" alt="amis-logo">
-    </div>
-    <hr>
-    <div class="main">
-      <ul>
-        <li *ngFor="let friend of friends" (contextmenu)="onContextMenu($event, friend)" >
-			<div class="inGame" *ngIf="friend.inGame === true">In Game</div>
-          <img *ngIf="friend.profilPic" [src]="hostname + friend.profilPic" alt="profilePicture">
-          <img class="profile" *ngIf="!friend.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut">
-		  <div class="connected" *ngIf="friend.isConnected === true"></div>
-		  <div class="notConnected" *ngIf="friend.isConnected === false"></div>
-          {{ friend.username }}
-        </li>
-        </ul>
-    </div>
+  
+  <div class="friends-container">
+    <!-- Section Recherche -->
+    <app-card variant="game" class="search-card">
+      <div class="search-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-icon">🔭</span>
+            Chercher
+          </h2>
+        </div>
+        
+        <div class="search-input-wrapper">
+          <input 
+            type="text" 
+            [(ngModel)]="searchTerm" 
+            (ngModelChange)="searchUsers()" 
+            placeholder="Rechercher des utilisateurs..."
+            class="search-input"
+          >
+          <span class="search-icon">🔍</span>
+        </div>
+        
+        <div class="search-results" *ngIf="filteredUsers.length > 0">
+          <div 
+            *ngFor="let user of filteredUsers" 
+            class="user-item"
+            (contextmenu)="onContextMenu($event, user)"
+          >
+            <div class="user-avatar">
+              <img 
+                [src]="user.profilPic ? hostname + user.profilPic : '../../../../../assets/images/astronaut.png'"
+                [alt]="user.username"
+                class="avatar-image profilPic"
+              >
+              <div class="status-indicator" [ngClass]="user.isConnected ? 'connected' : 'notConnected'"></div>
+              <div *ngIf="user.inGame" class="game-badge">In Game</div>
+            </div>
+            
+            <div class="user-info">
+              <h3 class="user-name">{{ user.username }}</h3>
+              <p class="user-status">{{ user.isConnected ? 'En ligne' : 'Hors ligne' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+
+    <!-- Section Amis -->
+    <app-card variant="default" class="friends-list-card">
+      <div class="friends-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-icon">👥</span>
+            Amis
+          </h2>
+        </div>
+        
+        <div class="friends-grid">
+          <div 
+            *ngFor="let friend of friends" 
+            class="friend-item"
+            (contextmenu)="onContextMenu($event, friend)"
+          >
+            <div class="friend-avatar">
+              <img 
+                [src]="friend.profilPic ? hostname + friend.profilPic : '../../../../../assets/images/astronaut.png'"
+                [alt]="friend.username"
+                class="avatar-image"
+              >
+              <div class="status-indicator" [ngClass]="friend.isConnected ? 'connected' : 'notConnected'"></div>
+              <div *ngIf="friend.inGame" class="game-badge inGame">In Game</div>
+            </div>
+            
+            <div class="friend-info">
+              <h3 class="friend-name">{{ friend.username }}</h3>
+              <p class="friend-status">{{ friend.isConnected ? 'En ligne' : 'Hors ligne' }}</p>
+            </div>
+          </div>
+          
+          <div *ngIf="friends.length === 0" class="empty-state">
+            <span class="empty-icon">👥</span>
+            <h3>Aucun ami pour le moment</h3>
+            <p>Recherchez des utilisateurs et ajoutez-les en amis !</p>
+          </div>
+        </div>
+      </div>
+    </app-card>
   </div>
 </div>
 
-<div *ngIf="showContextMenu" class="context-menu" [style.top.px]="contextMenuTop" [style.left.px]="contextMenuLeft">
-  <button *ngIf="!isMyFriend" (click)="addFriend(this.user.id, selectedUser)">add friend</button>
-  <button (click)="sendMessage(selectedUser)" *ngIf="!isBlocked" >send message</button>
-  <button *ngIf="!isBlocked" (click)="block(selectedUser)" >Block</button>
-  <button *ngIf="isBlocked" (click)="unblock(selectedUser)" >Unblock</button>
-  <button  *ngIf="isMyFriend" (click)="removeFriend(this.user.id, selectedUser)">delete friend</button>
-  <button (click)="goToProfileOf(selectedUser)">Go to profil</button>
+<!-- Context Menu Amélioré -->
+<div 
+  *ngIf="showContextMenu" 
+  class="context-menu glass" 
+  [style.top.px]="contextMenuTop" 
+  [style.left.px]="contextMenuLeft"
+>
+  <button *ngIf="!isMyFriend" (click)="addFriend(this.user.id, selectedUser)" class="context-menu-item">
+    <span class="menu-icon">➕</span>
+    Ajouter ami
+  </button>
+  <button (click)="sendMessage(selectedUser)" *ngIf="!isBlocked" class="context-menu-item">
+    <span class="menu-icon">💬</span>
+    Envoyer message
+  </button>
+  <button *ngIf="!isBlocked" (click)="block(selectedUser)" class="context-menu-item danger">
+    <span class="menu-icon">🚫</span>
+    Bloquer
+  </button>
+  <button *ngIf="isBlocked" (click)="unblock(selectedUser)" class="context-menu-item">
+    <span class="menu-icon">✅</span>
+    Débloquer
+  </button>
+  <button *ngIf="isMyFriend" (click)="removeFriend(this.user.id, selectedUser)" class="context-menu-item danger">
+    <span class="menu-icon">🗑️</span>
+    Supprimer ami
+  </button>
+  <button (click)="goToProfileOf(selectedUser)" class="context-menu-item">
+    <span class="menu-icon">👤</span>
+    Voir profil
+  </button>
+  </div>
+</div>
 </div>

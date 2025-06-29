@@ -1,27 +1,89 @@
-<body>
+<div class="login-page">
+  <!-- Navigation Header -->
+  <header class="nav-header">
+    <div class="logo-container">
+      <h1 class="logo-title gradient-text">SPACE PONG</h1>
+    </div>
+  </header>
 
-	<div class="general">
-		<div class="nav_base">
-			<div class="logo-title">
-				<a href="#" class="nasa-font">SPACE PONG</a>
-			</div>
-		</div>
-		<div class="img">
-			<img href="#" class="rocket"  src="../../../../assets/images/rocket.png" alt="rocket">
-		</div>
-		<div class = "container">
-			<div class="form" [formGroup]="form" (ngSubmit)="login()">
-				<img href="#" class="astronaut" src="../../../../assets/images/astronaut_white_user_def.png" alt="rocket">
-				<input type="email" placeholder="EMAIL" formControlName="email" (keyup.enter)="checkEmail()">
-				<p *ngIf="email.touched && email.hasError('required')">Email is required</p>
-				<p *ngIf="email.touched && email.hasError('email')">Email must be valid</p>
-				<button type="submit" (click)="checkEmail()" *ngIf="!showPasswordField">login or signin</button>
-			<input [hidden]="!showPasswordField" [@testAnimation]="showPasswordField" type="text" placeholder="PASSWORD" formControlName="password">
-			<p *ngIf="password.touched && password.hasError('required') ">Password is required</p>
-			<button *ngIf="showPasswordField" type="submit"  (click)="login()">LOGIN</button>
-		</div>
-		<app-api-login></app-api-login>
-	</div>
+  <!-- Main Content -->
+  <main class="login-main">
+    <!-- Floating Rocket -->
+    <div class="rocket-container float">
+      <img src="../../../../assets/images/rocket.png" alt="Rocket" class="rocket-img">
+    </div>
+
+    <!-- Login Card -->
+    <app-card class="login-card slide-up" variant="game">
+      <div class="login-content">
+        <!-- Astronaut Avatar -->
+        <div class="avatar-container">
+          <img src="../../../../assets/images/astronaut_white_user_def.png" alt="Astronaut" class="avatar glow-pulse">
+        </div>
+
+        <!-- Login Form -->
+        <form class="login-form" [formGroup]="form" (ngSubmit)="login()">
+          <div class="form-fields">
+            <app-input
+              label="Email Address"
+              type="email"
+              placeholder="your.email@galaxy.space"
+              formControlName="email"
+              size="lg"
+              [error]="email.touched && email.hasError('required') ? 'Email is required' : 
+                       email.touched && email.hasError('email') ? 'Email must be valid' : undefined"
+              (inputChange)="checkEmail()"
+            ></app-input>
+
+            <app-input
+              *ngIf="showPasswordField"
+              [@testAnimation]="showPasswordField"
+              label="Password"
+              type="password"
+              placeholder="Enter your secure password"
+              formControlName="password"
+              size="lg"
+              [error]="password.touched && password.hasError('required') ? 'Password is required' : undefined"
+            ></app-input>
+          </div>
+
+          <div class="form-actions">
+            <app-button
+              *ngIf="!showPasswordField"
+              variant="primary"
+              size="lg"
+              type="submit"
+              (clicked)="checkEmail()"
+            >
+              <i class="fas fa-rocket"></i>
+              Launch Login
+            </app-button>
+
+            <app-button
+              *ngIf="showPasswordField"
+              variant="primary"
+              size="lg"
+              type="submit"
+              [loading]="isLoading"
+              (clicked)="login()"
+            >
+              <i class="fas fa-sign-in-alt"></i>
+              Enter Space Station
+            </app-button>
+          </div>
+        </form>
+
+        <!-- Alternative Login -->
+        <div class="alternative-login">
+          <div class="divider">
+            <span>or explore with</span>
+          </div>
+          <app-api-login></app-api-login>
+        </div>
+      </div>
+    </app-card>
+  </main>
+
+  <!-- Background Stars -->
+  <div class="stars-bg"></div>
 </div>
-
-</body>

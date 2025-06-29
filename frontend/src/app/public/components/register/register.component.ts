@@ -26,6 +26,7 @@ export interface File {
 
 export class RegisterComponent {
 
+  isLoading: boolean = false;
 
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
 
@@ -66,6 +67,7 @@ export class RegisterComponent {
       inProgress: false,
       progress: 0
     };
+    (this.fileUpload.nativeElement as HTMLInputElement).nextElementSibling.textContent = this.file.data.name;
   }
   
   uploadFile(id: number) {
@@ -94,6 +96,7 @@ export class RegisterComponent {
   }
 
   register() {
+    this.isLoading = true;
 		if (this.form.valid) {
       if (!this.file.data && this.form.get('profilPic').value === null) {
         const defaultImageURL = '../../../assets/images/astronaut.png';
@@ -122,6 +125,7 @@ export class RegisterComponent {
 			}
         });
 			}
+    this.isLoading = false;
 	}
 
 	get	email(): FormControl {

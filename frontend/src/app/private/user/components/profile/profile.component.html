@@ -1,55 +1,179 @@
 <app-nav-bar></app-nav-bar>
-<div class="general">
-  <div class="container">
-    <div class="block" *ngIf="(user$ | async) as user">
-		<h1>{{ user.username}}</h1>
-      <img class="profile" *ngIf="user.profilPic" [src]="hostname + user.profilPic" alt="astronaut">
-		<img class="profile" *ngIf="!user.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut">
-		<div class="connected" *ngIf="toto && toto.isConnected === true"></div>
-		<div class="inGame" *ngIf="toto && toto.inGame === true">In Game</div>
-		  <div class="notConnected" *ngIf="toto && toto.isConnected === false"></div>
-      <label>Level {{ user.level}}</label>
-      <progress max="100" value="50">
-        50%</progress>
-        <div><img src="../../../../../assets/images/master-chief.png" alt="badge" class="badge"></div>
+
+<div class="main-layout">
+  <div class="main-layout-content">
+    <div class="profile-page">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <h1 class="page-title">
+          <span class="gradient-text">Profil Spatial</span>
+        </h1>
+        <div class="header-glow"></div>
       </div>
-      <div class="block">
-        <h1>STATISTIC</h1>
-        <div class="row">
-          <div class="col">
-            <h2>VICTORY</h2>
-            <p>{{win}}</p>
+
+      <!-- Main Profile Content -->
+      <div class="profile-content" *ngIf="(user$ | async) as user">
+        
+        <!-- User Identity Card -->
+        <div class="profile-card user-identity">
+          <div class="card-header">
+            <div class="header-icon">👨‍🚀</div>
+            <h2>Identité Astronaute</h2>
           </div>
-          <div class="col">
-            <h2>LOSS</h2>
-            <p>{{loss}}</p>
+        
+        <div class="identity-content">
+          <div class="avatar-section">
+            <div class="avatar-container">
+              <img 
+                *ngIf="user.profilPic" 
+                [src]="hostname + user.profilPic" 
+                alt="Photo de profil"
+                class="profile-avatar"
+              >
+              <img 
+                *ngIf="!user.profilPic" 
+                src="../../../../../assets/images/astronaut.png" 
+                alt="Avatar par défaut"
+                class="profile-avatar"
+              >
+              
+              <!-- Status Indicators -->
+              <div class="status-indicators">
+                <div class="connection-status">
+                  <div class="status-dot connected" *ngIf="toto && toto.isConnected === true"></div>
+                  <div class="status-dot disconnected" *ngIf="toto && toto.isConnected === false"></div>
+                </div>
+                <div *ngIf="toto && toto.inGame === true" class="game-status">
+                  <span class="game-icon">🎮</span>
+                  <span class="game-text">En Mission</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="user-info">
+            <h3 class="username">{{ user.username }}</h3>
+            
+            <div class="level-progression">
+              <div class="level-badge">
+                <span class="level-label">Niveau</span>
+                <span class="level-number">{{ user.level || 1 }}</span>
+              </div>
+              
+              <div class="progress-section">
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="50"></div>
+                </div>
+                <span class="progress-label">50% vers le niveau suivant</span>
+              </div>
+            </div>
+            
+            <div class="achievement-badge">
+              <img src="../../../../../assets/images/master-chief.png" alt="badge" class="badge-icon">
+              <span class="badge-title">Expert Spatial</span>
+            </div>
           </div>
         </div>
-        <div class="circle">
-          <circle-progress
-          [radius]="80"
-          [outerStrokeColor]="'#39A78E'"
-          [innerStrokeColor]="'#FE7C73'"
-          [animation]="true"
-          [animationDuration]="300"
-          [percent]="ratio"
-          ></circle-progress>
+      </div>
+
+      <!-- Statistics Card -->
+      <div class="profile-card statistics">
+        <div class="card-header">
+          <div class="header-icon">📊</div>
+          <h2>Statistiques de Combat</h2>
         </div>
-    </div>
-    <div class="block" *ngIf="user$ | async as user">
-      <h1>HISTORY</h1>
-      <table *ngIf="user.history?.length > 0; else message">
-        <tbody>
-          <ng-container *ngIf="opponents$ | async as opponents">
-          <tr *ngFor="let match of history; let i = index" >
-            <td>{{ user.username }}</td>
-            <td [ngClass]="{'red': !match.won, 'green': match.won}" >{{ match.won? 'V' : 'D' }}</td>
-            <td>{{ opponents[i]?.username || 'Unknown' }}</td>
-          </tr>
-        </ng-container>
-        </tbody>
-      </table>
-      <ng-template #message>No matches found.</ng-template>
+        
+        <div class="stats-content">
+          <div class="stats-overview">
+            <div class="stat-box victories">
+              <div class="stat-icon">🏆</div>
+              <div class="stat-info">
+                <span class="stat-value">{{ win || 0 }}</span>
+                <span class="stat-label">Victoires</span>
+              </div>
+            </div>
+            
+            <div class="stat-box defeats">
+              <div class="stat-icon">💔</div>
+              <div class="stat-info">
+                <span class="stat-value">{{ loss || 0 }}</span>
+                <span class="stat-label">Défaites</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="win-ratio-section">
+            <div class="ratio-display">
+              <circle-progress
+                [radius]="60"
+                [outerStrokeColor]="'#00ffff'"
+                [innerStrokeColor]="'#ff4da6'"
+                [animation]="true"
+                [animationDuration]="1000"
+                [percent]="ratio || 0"
+                [showSubtitle]="false"
+                [showTitle]="false"
+              ></circle-progress>
+            </div>
+            <div class="ratio-info">
+              <span class="ratio-percentage">{{ ratio || 0 }}%</span>
+              <span class="ratio-description">Taux de Victoire</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match History Card -->
+      <div class="profile-card match-history">
+        <div class="card-header">
+          <div class="header-icon">🚀</div>
+          <h2>Historique des Missions</h2>
+        </div>
+        
+        <div class="history-content">
+          <div *ngIf="user.history?.length > 0; else noHistory" class="matches-list">
+            <ng-container *ngIf="opponents$ | async as opponents">
+              <div 
+                *ngFor="let match of history; let i = index" 
+                class="match-item"
+                [ngClass]="{'victory': match.won, 'defeat': !match.won}"
+              >
+                <div class="match-result">
+                  <div class="result-icon" [ngClass]="match.won ? 'win' : 'loss'">
+                    {{ match.won ? '🏆' : '💥' }}
+                  </div>
+                  <div class="result-text">
+                    {{ match.won ? 'VICTOIRE' : 'DÉFAITE' }}
+                  </div>
+                </div>
+                
+                <div class="match-details">
+                  <div class="player-info">
+                    <span class="player-name">{{ user.username }}</span>
+                  </div>
+                  <div class="vs-separator">VS</div>
+                  <div class="opponent-info">
+                    <span class="opponent-name">{{ opponents[i]?.username || 'Pilote Inconnu' }}</span>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          
+          <ng-template #noHistory>
+            <div class="empty-history">
+              <div class="empty-icon">�</div>
+              <h3>Aucune Mission Accomplie</h3>
+              <p>Commencez votre première mission spatiale pour voir votre historique ici !</p>
+              <div class="cta-button">
+                <span>🚀 Démarrer une Mission</span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+      </div>
     </div>
   </div>
 </div>

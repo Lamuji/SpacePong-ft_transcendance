@@ -1,95 +1,105 @@
-body {
-	background: transparent;
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'nasalization', sans-serif;
+  color: white;
 }
 
-.nav_base
-{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    scroll-behavior: none;
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: url('/assets/images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
-.nav_
-{
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    width: 97%;
-    justify-content: space-between;
-}
-.play
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    font-size: 56px;
-}
-.play_animation
-{
-  transform: scale(1);
-  animation: pulse-black 2s infinite;
-  @keyframes pulse-black {
-      0% {
-        transform: scale(0.95);
-        text-shadow: 0 0 0 0 #cd317c;
-      }
 
-      50% {
-        transform: scale(1);
-        text-shadow: 0px 5px 15px #cd317c;
-      }
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(0, 0, 0, 0.5);
+}
 
-      100% {
-        transform: scale(0.95);
-        text-shadow: 0 0 0 0 #cd317c;
-      }
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-title a {
+  font-size: 36px;
+  text-decoration: none;
+}
+
+.rocket {
+  width: 70px;
+  transform: rotate(45deg);
+}
+
+.nav-links a {
+  font-size: 18px;
+  text-decoration: none;
+  padding: 10px 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Main content styles */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-section a {
+  font-size: 80px;
+  text-decoration: none;
+  animation: pulse-white 2s infinite;
+}
+
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    transform: scale(1);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+  100% {
+    transform: scale(0.95);
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
   }
 }
 
-.nasa-font
-{
-    font-family: "nasalization";
-    color: white !important;
+.nasa-font {
+  font-family: "nasalization";
+  color: white !important;
 }
 
-.titre
-{
-    font-size: 36px;
-}
-.sign
-{
-    padding: 5px;
-    align-self: center;
-    margin-bottom: 15px;
-    border: solid 1px;
-    width: 8.5%;
-    border-color: white;
-    border-width: 1px;
-    border-radius: 5px;
-    flex-basis: content;
-}
+/* Responsive design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 20px;
+  }
 
-.logo-title
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 50%;
-}
+  .logo-title {
+    margin-bottom: 20px;
+  }
 
-.rocket
-{
-    width: 70px;
-    z-index: +1;
-    rotate: 45deg;
-}
-
-div.profile_pic {
-  display: flex;
-  justify-content: flex-end;
-  .astro {
-    width: 15%;
+  .play-section a {
+    font-size: 50px;
   }
 }

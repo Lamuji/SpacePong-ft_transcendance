@@ -1,29 +1,19 @@
 <body>
-<div class="nav_base">
-
-    <div class="nav_" >
-
-        <div class="logo-title titre">
-            <a [routerLink]="['/home']"class="nasa-font">SPACE PONG</a>
-           <img class="rocket"  src="../../../../assets/images/rocket.png" alt="rocket">
-        </div>
-        <div class="sign"  *ngIf="!user">
-			<a [routerLink]="['../login']" class="nasa-font">login/sign in</a>
-        </div>
-
+<div class="home-container">
+  <header class="header">
+    <div class="logo-title">
+      <a [routerLink]="['/home']" class="nasa-font">SPACE PONG</a>
+      <img class="rocket" src="../../../../assets/images/rocket.png" alt="rocket">
     </div>
+    <div class="nav-links">
+      <a *ngIf="!user" [routerLink]="['../login']" class="nasa-font">Login</a>
+    </div>
+  </header>
 
-	<div *ngIf="user; else goToLogin">
-   		 <div  class="play">
-    	    <a [routerLink]="['/private/game/spacepong']" class="nasa-font play_animation" >PLAY</a>
-   		 </div>
-	</div>
-
+  <main class="main-content">
+    <div class="play-section">
+      <a [routerLink]="user ? ['/private/game/spacepong'] : ['../login']" class="nasa-font play-animation">PLAY</a>
+    </div>
+  </main>
 </div>
 </body>
-
-<ng-template #goToLogin>
-	<div  class="play">
-		<a [routerLink]="['../login']" class="nasa-font play_animation" >PLAY</a>
-	</div>
-</ng-template>

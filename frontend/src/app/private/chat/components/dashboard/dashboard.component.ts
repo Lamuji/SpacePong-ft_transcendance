@@ -45,4 +45,10 @@ export class DashboardComponent implements OnInit{
 		this.chatService.getConfirmPass().subscribe(() => this.dashService.checkPass = false);
 	}
 
+	closeModals(): void {
+		this.dashService.find = false;
+		this.dashService.checkPass = false;
+		this.dashService.create = false;
+	}
+
 }

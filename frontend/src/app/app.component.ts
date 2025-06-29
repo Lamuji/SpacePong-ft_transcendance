@@ -9,9 +9,15 @@ import * as $ from 'jquery';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent
-{
+export class AppComponent implements OnInit {
+  isLoading = true;
   
   constructor() {}
   
+  ngOnInit(): void {
+    // Simulate app initialization
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
 }

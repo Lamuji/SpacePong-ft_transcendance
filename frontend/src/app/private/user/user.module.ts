@@ -15,7 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { AvatarComponent } from './components/avatar/avatar.component';
-
+import { UiModule } from '../../shared/ui/ui.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { AvatarComponent } from './components/avatar/avatar.component';
     MatButtonModule,
     MatCardModule,
     NgxColorsModule,
+    UiModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

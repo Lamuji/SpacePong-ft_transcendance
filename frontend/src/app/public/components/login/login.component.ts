@@ -44,9 +44,10 @@ import { AbstractControl } from '@angular/forms';
 		  return { emailDomain: true };
 		}
 	  }
-  
-	mail: string;
-	  showPasswordField : boolean = false;
+
+	  mail: string;
+	  showPasswordField: boolean = false;
+	  isLoading: boolean = false; // Add loading state
   
 	  constructor(private authService: AuthService, private router: Router, private http: HttpClient, private user: UserService) {}
 

@@ -39,7 +39,7 @@ export class PlayerService {
   }
 
   addFriend(userId: number, newFriend: UserI) : Observable<UserI> {
-    return this.httpClient.post<UserI>(`api/users/${userId}/addfriend`,{newFriend});
+    return this.httpClient.post<UserI>(`api/users/${userId}/addfriend`, { newFriend });
   }
 
   removeFriend(userId: number, friend: UserI) : Observable<UserI> {

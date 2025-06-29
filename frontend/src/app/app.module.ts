@@ -13,6 +13,9 @@ import { StarsComponent } from './components/stars/stars.component';
 import { StarsInteractiveComponent } from './components/stars-interactive/stars-interactive.component';
 import { WINDOW_PROVIDERS } from './window-token';
 
+// Import UI Module
+import { UiModule } from './shared/ui/ui.module';
+
 export function tokenGetter() {
 	return localStorage.getItem("access_token");
   }
@@ -29,13 +32,14 @@ export function tokenGetter() {
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    UiModule, // Add UI Module
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         allowedDomains: [`${window.location.protocol}//${window.location.hostname}:3000`, `${window.location.protocol}//${window.location.hostname}:3001`]
       }
-	    }),
-    ],
+    }),
+  ],
   providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent]
 })

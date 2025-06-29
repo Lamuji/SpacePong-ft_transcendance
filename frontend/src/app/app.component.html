@@ -1,4 +1,19 @@
-<router-outlet></router-outlet>
+<!-- Global App Loader -->
+<app-loader 
+  *ngIf="isLoading" 
+  type="rocket" 
+  size="lg" 
+  message="Initializing Space Station..." 
+  [overlay]="true"
+></app-loader>
+
+<!-- Main App Content -->
+<div class="app-container" [class.loading]="isLoading">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Global Background Effects -->
+<div class="cosmic-bg"></div>
 <!-- <div *ngIf="service.isActive()">
 	<app-stars-interactive *ngIf="!service.isEnable()"></app-stars-interactive>
 	<app-stars *ngIf="service.isEnable()"></app-stars>

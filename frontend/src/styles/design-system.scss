@@ -96,6 +96,15 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
+  
+  // Background effects
+  --bg-primary: var(--space-dark);
+  --bg-secondary: var(--space-primary);
+  
+  // Layout dimensions
+  --sidebar-width: 120px;
+  --navbar-height: 80px;
+  --navbar-height-mobile: 60px;
 }
 
 // ===== UTILITY CLASSES =====
@@ -284,20 +293,134 @@
   50% { transform: translateY(-10px); }
 }
 
-// Responsive utilities
-@media (max-width: 768px) {
-  :root {
-    --font-size-4xl: 1.875rem;  // 30px on mobile
-    --font-size-5xl: 2.25rem;   // 36px on mobile
-    --font-size-6xl: 3rem;      // 48px on mobile
+// ===== LAYOUT UTILITIES =====
+
+// Main layout for pages with navbar and sidebar
+.main-layout {
+  margin-left: var(--sidebar-width); // Account for sidebar width
+  margin-top: var(--navbar-height);   // Account for navbar height
+  min-height: calc(100vh - var(--navbar-height));
+  transition: margin var(--transition-normal);
+  
+  // Content wrapper for proper spacing
+  &-content {
+    padding: var(--space-6);
+    max-width: 100%;
+    overflow-x: hidden;
   }
   
-  .card {
-    padding: var(--space-4);
-    border-radius: var(--radius-lg);
-  }
-  
-  .btn {
-    padding: var(--space-3) var(--space-4);
+  // Full width content (no padding)
+  &-full {
+    padding: 0;
+    margin-left: var(--sidebar-width);
+    margin-top: var(--navbar-height);
+    min-height: calc(100vh - var(--navbar-height));
   }
 }
+
+// Special layout for chat (full height content)
+.chat-layout {
+  position: fixed;
+  top: var(--navbar-height);
+  left: var(--sidebar-width);
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: var(--bg-gradient-primary);
+}
+
+// Game layout (full screen when needed)
+.game-layout {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--navbar-height);
+  min-height: calc(100vh - var(--navbar-height));
+  position: relative;
+  
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    z-index: var(--z-fullscreen);
+  }
+}
+
+// ===== RESPONSIVE LAYOUT =====
+
+@media (max-width: 1024px) {
+  .main-layout,
+  .main-layout-full,
+  .chat-layout,
+  .game-layout {
+    margin-left: 0; // No sidebar on mobile
+    margin-top: var(--navbar-height); // Keep navbar height
+  }
+  
+  .chat-layout {
+    left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-layout,
+  .main-layout-full,
+  .chat-layout,
+  .game-layout {
+    margin-top: var(--navbar-height-mobile); // Smaller navbar on mobile
+  }
+  
+  .chat-layout {
+    top: var(--navbar-height-mobile);
+  }
+  
+  .main-layout-content {
+    padding: var(--space-4);
+  }
+}
+
+// ===== COMPONENT SPACING =====
+
+// Standard page container
+.page-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6);
+  
+  &.narrow {
+    max-width: 800px;
+  }
+  
+  &.wide {
+    max-width: 1600px;
+  }
+}
+
+// Card layouts
+.card-grid {
+  display: grid;
+  gap: var(--space-6);
+  
+  &.cols-1 { grid-template-columns: 1fr; }
+  &.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  &.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  &.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  
+  @media (max-width: 1024px) {
+    &.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    &.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  @media (max-width: 768px) {
+    &.cols-4,
+    &.cols-3,
+    &.cols-2 { 
+      grid-template-columns: 1fr; 
+    }
+    gap: var(--space-4);
+  }
+}
+
+// ===== Z-INDEX LAYERS =====

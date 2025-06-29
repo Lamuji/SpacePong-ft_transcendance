@@ -16,13 +16,16 @@ import { GoogleAuthComponent } from './components/google-auth/google-auth.compon
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 
+// Import UI Module
+import { UiModule } from '../shared/ui/ui.module';
+
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     ApiLoginComponent,
     GoogleAuthComponent,
-	  HomeComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { HomeComponent } from './components/home/home.component';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    UiModule // Add UI Module
   ]
 })
 export class PublicModule { }

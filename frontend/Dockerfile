@@ -1,42 +1,26 @@
-# Stage 1: Development stage
-FROM node:18.13.0-alpine AS development
+# Stage 1: development
+FROM node:18.13.0 AS development
 
-# Create app directory and user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S angular -u 1001
+WORKDIR /ft_transcendence/frontend/src/app
 
-WORKDIR /app
+# Fix npm permissions and configure cache
+RUN npm config set cache /tmp/.npm
+RUN npm config set unsafe-perm true
 
-# Change ownership of the working directory
-RUN chown -R angular:nodejs /app
+# Create Angular cache directory with proper permissions
+RUN mkdir -p /tmp/.angular && chmod 777 /tmp/.angular
+RUN mkdir -p .angular && chmod 777 .angular
 
-# Switch to non-root user early
-USER angular
+# Configure Angular CLI cache directory
+ENV NG_CLI_ANALYTICS=false
+ENV NG_CLI_CACHE=/tmp/.angular
 
-# Configure npm global directory for non-root user
-RUN mkdir -p /home/angular/.npm-global && \
-    npm config set prefix '/home/angular/.npm-global'
+COPY package*.json ./
 
-# Update PATH to include npm global binaries
-ENV PATH="/home/angular/.npm-global/bin:${PATH}"
+RUN npm install -g ts-node
+RUN npm install
+RUN npm install -g @angular/cli@14.2.10
 
-# Copy package files with proper ownership
-COPY --chown=angular:nodejs package*.json ./
+COPY . .
 
-# Install dependencies and global packages
-RUN npm ci && \
-    npm install -g @angular/cli@14.2.10 ts-node && \
-    npm cache clean --force
-
-# Copy source code with proper ownership
-COPY --chown=angular:nodejs . .
-
-# Build the application
-RUN npm run build
-
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:4200/ || exit 1
-
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--disable-host-check"]
+EXPOSE 4200

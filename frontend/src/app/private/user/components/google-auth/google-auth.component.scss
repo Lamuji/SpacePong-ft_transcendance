@@ -1,30 +1,60 @@
-.main {
-// 	position: absolute;
-// 	top: 50%;
-//   left: 50%;
-	width: 100vw;
-	height:	100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+// 2FA Authentication Component - SpacePong Design System
+
+.auth-2fa-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-4);
+  background: var(--bg-gradient-primary);
+  
+  .auth-card {
+    width: 100%;
+    max-width: 480px;
+  }
 }
 
-.qrCode {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
   
- button {
-	width: 100px;
-	background: #C32F76;
-	border: none;
-	border-radius: 3px;
-	color: white;
-	padding: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	cursor: pointer;
+  .qr-wrapper {
+    padding: var(--space-4);
+    background: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .instruction-text {
+    text-align: center;
+    color: var(--text-secondary);
+    font-family: var(--font-family-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.enable-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+  
+  .icon-wrapper {
+    .security-icon {
+      font-size: 4rem;
+      filter: drop-shadow(0 0 20px var(--neon-cyan));
+    }
+  }
+  
+  .description-text {
+    color: var(--text-secondary);
+    font-family: var(--font-family-secondary);
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0;
+  }
 }

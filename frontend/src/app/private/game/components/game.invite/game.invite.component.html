@@ -1,6 +1,7 @@
 <app-nav-bar></app-nav-bar>
 
-<div *ngIf="gameEnded == false" class="game" #game id="game">
+<div class="game-layout">
+  <div *ngIf="gameEnded == false" class="game" #game id="game">
     <div *ngIf="notJoined" class="waitingAnimation">
       <div class="load-wrapp">
         <div class="load-5">
@@ -12,5 +13,6 @@
         </div>
       </div>
     </div>
+  </div>
+  <app-end-game-page *ngIf="gameEnded"> </app-end-game-page>
 </div>
-<app-end-game-page *ngIf="gameEnded"> </app-end-game-page>

@@ -1,16 +1,35 @@
-<div class="main">
-	<div *ngIf="qr" class="qrCode">
-			<qrcode [qrdata]="qr"></qrcode>
-			<button (click)="disable2FA()">Disable 2FA</button>
-	</div>
+<div class="auth-2fa-container">
+	<app-card title="Authentification à deux facteurs" variant="highlighted" class="auth-card">
+		<div *ngIf="qr" class="qr-section">
+			<div class="qr-wrapper">
+				<qrcode [qrdata]="qr" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+			</div>
+			<p class="instruction-text">
+				Scannez ce QR code avec votre application d'authentification
+			</p>
+			<app-button variant="danger" size="md" (clicked)="disable2FA()">
+				Désactiver 2FA
+			</app-button>
+		</div>
 
-	<div *ngIf="!qr" class="qrCode">
-		<button (click)="enable2FA()">Enable 2FA</button>
-	</div>
+		<div *ngIf="!qr" class="enable-section">
+			<div class="icon-wrapper">
+				<span class="security-icon">🔒</span>
+			</div>
+			<p class="description-text">
+				Renforcez la sécurité de votre compte avec l'authentification à deux facteurs
+			</p>
+			<app-button variant="primary" size="lg" (clicked)="enable2FA()">
+				Activer 2FA
+			</app-button>
+		</div>
 
-	<div>
-		<button (click)="goBack()">Go Back</button>
-	</div>
+		<div slot="footer">
+			<app-button variant="ghost" (clicked)="goBack()">
+				Retour
+			</app-button>
+		</div>
+	</app-card>
 </div>
 
   

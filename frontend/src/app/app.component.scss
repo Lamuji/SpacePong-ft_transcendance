@@ -1,9 +1,70 @@
-.background
-{
-    position: absolute;
-    background-image: url(../assets/images/stars.png);
-    z-index: -999;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
+// App Component Styles - SpacePong Design System
+
+// Legacy background (keep for compatibility)
+.background {
+  position: absolute;
+  background-image: url(../assets/images/stars.png);
+  z-index: -999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  opacity: 0.3; // Reduce opacity for layering with new effects
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+  transition: opacity var(--transition-slow);
+  
+  &.loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+// Cosmic background enhancement
+.cosmic-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(114, 9, 183, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(77, 159, 255, 0.1) 0%, transparent 50%);
+  z-index: -2;
+  animation: cosmic-drift 20s ease-in-out infinite alternate;
+}
+
+@keyframes cosmic-drift {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(1.1) rotate(2deg);
+    opacity: 0.2;
+  }
+}
+
+// Global responsive adjustments
+@media (max-width: 1024px) {
+  .app-container {
+    padding-top: 60px; // Account for mobile header
+  }
+}
+
+@media (max-width: 768px) {
+  .cosmic-bg {
+    animation-duration: 15s; // Faster on mobile for performance
+  }
+}
+
+// Print styles
+@media print {
+  .cosmic-bg,
+  .background {
+    display: none;
+  }
 }

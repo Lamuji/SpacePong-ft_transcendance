@@ -1,45 +1,139 @@
-<nav>
-	<ul>
-	  <li>
-		  <a [routerLink]="['/private/game/spacepong']" title="Game" [ngClass]="{'activeGame': currentUrl === '/private/game/spacepong'}">
-			  <img src="../../../../assets/images/rocket.png" alt="Game" class="game">
-			</a>
-		</li>
-		<li>
-		<a [routerLink]="['/private/user/profile']" title="Profile" [ngClass]="{'active': currentUrl === '/private/user/profile'}">
-			<img src="../../../../assets/images/utilisateur-astronaute_1.png" alt="Profile" class="profile">
-		</a>
-	  </li>
-	  <li>
-		<a [routerLink]="['/private/chat/dashboard']" title="Chat" [ngClass]="{'active': currentUrl === '/private/chat/dashboard'}">
-			<img src="../../../../assets/images/transmitter_1.png" alt="Chat" class="chat">
-		</a>
-	</li>
-	<li>
-		<a [routerLink]="['/private/game/live']" title="Live" [ngClass]="{'active': currentUrl === '/private/game/live'}">
-			<img src="../../../../assets/images/satellite_1.png" alt="Live" class="live">
-		</a>
-	</li>
-	<li>
-		<a [routerLink]="['/private/user/friends']" title="Friends" [ngClass]="{'active': currentUrl === '/private/user/friends'}">
-		  <img src="../../../../assets/images/src.png" alt="Friends" class="friends">
-		</a>
-	</li>
-	<li>
-		<a [routerLink]="['/private/user/settings']" title="Settings" [ngClass]="{'active': currentUrl === '/private/user/settings'}">
-			<img src="../../../../assets/images/technical-support_1.png" alt="Settings" class="settings">
-		</a>
-	</li>
-</ul>
-  <div class="profile_pic special" (click)="deconnection()" style="cursor: pointer;">
-    <img class="astro" src="../../../../assets/images/logoutwhite.png">
+<!-- Main Navigation Sidebar -->
+<nav class="nav-sidebar glass">
+  <!-- Navigation Items -->
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a 
+        [routerLink]="['/private/game/spacepong']" 
+        title="Play Game" 
+        [ngClass]="{'active': currentUrl === '/private/game/spacepong'}"
+        class="nav-link"
+      >
+        <img src="../../../../assets/images/rocket.png" alt="Game" class="nav-icon rocket-icon float">
+        <span class="nav-label">Play</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a 
+        [routerLink]="['/private/user/profile']" 
+        title="Profile" 
+        [ngClass]="{'active': currentUrl === '/private/user/profile'}"
+        class="nav-link"
+      >
+        <img src="../../../../assets/images/utilisateur-astronaute_1.png" alt="Profile" class="nav-icon">
+        <span class="nav-label">Profile</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a 
+        [routerLink]="['/private/chat/dashboard']" 
+        title="Chat" 
+        [ngClass]="{'active': currentUrl === '/private/chat/dashboard'}"
+        class="nav-link"
+      >
+        <img src="../../../../assets/images/transmitter_1.png" alt="Chat" class="nav-icon">
+        <span class="nav-label">Chat</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a 
+        [routerLink]="['/private/game/live']" 
+        title="Live Games" 
+        [ngClass]="{'active': currentUrl === '/private/game/live'}"
+        class="nav-link"
+      >
+        <img src="../../../../assets/images/satellite_1.png" alt="Live" class="nav-icon">
+        <span class="nav-label">Live</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a 
+        [routerLink]="['/private/user/friends']" 
+        title="Friends" 
+        [ngClass]="{'active': currentUrl === '/private/user/friends'}"
+        class="nav-link"
+      >
+        <img src="../../../../assets/images/src.png" alt="Friends" class="nav-icon">
+        <span class="nav-label">Friends</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a 
+        [routerLink]="['/private/user/settings']" 
+        title="Settings" 
+        [ngClass]="{'active': currentUrl === '/private/user/settings'}"
+        class="nav-link"
+      >
+        <img src="../../../../assets/images/technical-support_1.png" alt="Settings" class="nav-icon">
+        <span class="nav-label">Settings</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Logout Button -->
+  <div class="nav-logout">
+    <app-button 
+      variant="ghost" 
+      size="sm" 
+      (clicked)="deconnection()" 
+      title="Logout"
+    >
+      <img src="../../../../assets/images/logoutwhite.png" alt="Logout" class="logout-icon">
+    </app-button>
   </div>
 </nav>
 
-
-<header>
-	<a>
-		<h1 [routerLink]="['/public/home']" style="cursor: pointer;" class="title">SPACEPONG</h1>
-	</a>
+<!-- Top Header -->
+<header class="main-header">
+  <h1 
+    [routerLink]="['/public/home']" 
+    class="app-title gradient-text glow-pulse"
+    title="SpacePong Home"
+  >
+    SPACEPONG
+  </h1>
 </header>
+
+<!-- Mobile Menu Toggle -->
+<div class="mobile-menu-toggle" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Mobile Navigation Overlay -->
+<div class="mobile-nav-overlay" [class.active]="isMobileMenuOpen" (click)="closeMobileMenu()">
+  <nav class="mobile-nav glass">
+    <div class="mobile-nav-header">
+      <h2 class="gradient-text">SPACEPONG</h2>
+      <button class="close-btn" (click)="closeMobileMenu()">×</button>
+    </div>
+    
+    <ul class="mobile-nav-list">
+      <li *ngFor="let item of navItems" class="mobile-nav-item">
+        <a 
+          [routerLink]="item.route" 
+          [ngClass]="{'active': currentUrl === item.route}"
+          class="mobile-nav-link"
+          (click)="closeMobileMenu()"
+        >
+          <img [src]="item.icon" [alt]="item.label" class="mobile-nav-icon">
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+    
+    <div class="mobile-nav-footer">
+      <app-button variant="secondary" (clicked)="deconnection()">
+        <img src="../../../../assets/images/logoutwhite.png" alt="Logout" class="logout-icon">
+        Logout
+      </app-button>
+    </div>
+  </nav>
+</div>
 

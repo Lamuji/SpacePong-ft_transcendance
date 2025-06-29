@@ -152,14 +152,21 @@ export class FriendsComponent implements OnInit {
     }
 
     addFriend(userId: number, selectedUser: UserI){
-      this.playerService.addFriend(userId, selectedUser).subscribe((response : UserI) => {
+      this.playerService.addFriend(userId, selectedUser).subscribe({
+        next: (response: UserI) => {
           this.user$.subscribe((user: UserI) => {
             this.friends = user.friends;
-           // this.setMessage()
-    		this.chatService.connected();
+            this.chatService.connected();
+          });
+          this.showContextMenu = false;
+          console.log('Ami ajouté avec succès !');
+        },
+        error: (error) => {
+          console.error('Erreur lors de l\'ajout d\'ami:', error);
+          this.showContextMenu = false;
+          // Ici on pourrait ajouter une notification d'erreur
+        }
       });
-        });
-        this.showContextMenu = false;
     }
 
     selectUser(user: UserI) {

@@ -1,33 +1,132 @@
 <app-nav-bar></app-nav-bar>
-<div class="dashboard">
 
-	<div class="chat-selector">
-		<div class="main">
-			<h1 *ngIf="dashService.channel" class="title">Chat</h1>
-			<div class="separator"></div>
-		</div>
-		<div class="search-container">
-			<label *ngIf="dashService.channel">Find a Conversation</label>
-			<label *ngIf="!dashService.channel">Find a User</label>
-		</div>
-		<div class="create-container" *ngIf="dashService.channel">
-			<label>Create new Channel</label>
-			<div class="add">+</div>
-		</div>
-		<div *ngIf="dashService.create" class="createChannel">
-			<app-create-channel></app-create-channel>
-		</div>
-		<div class="conversation">
-			<app-conversation-list></app-conversation-list>
-		</div>
-	</div>
-	<div class="messages">
-		<app-messages></app-messages>
-	</div>
-	<div *ngIf="dashService.members" class="users">
-		<app-members-list></app-members-list>
-	</div>
+<div class="chat-layout">
+  <div class="chat-dashboard">
+  <!-- Sidebar Section -->
+  <div class="chat-sidebar">
+    <!-- Header Section -->
+    <div class="sidebar-header">
+      <div class="header-content">
+        <h1 class="chat-title gradient-text">
+          <span class="title-icon">💬</span>
+          Chat
+        </h1>
+        
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+          <button 
+            class="toggle-btn"
+            [class.active]="dashService.channel"
+            (click)="dashService.channel = true"
+            title="Channels">
+            💬 Channels
+          </button>
+          <button 
+            class="toggle-btn"
+            [class.active]="!dashService.channel"
+            (click)="dashService.channel = false"
+            title="Users">
+            👥 Users
+          </button>
+        </div>
+        
+        <div class="header-actions">
+          <button 
+            class="action-btn search-btn"
+            [class.active]="dashService.find"
+            (click)="dashService.find = !dashService.find"
+            title="Find Channel">
+            <i class="icon-search">🔍</i>
+          </button>
+          <button 
+            *ngIf="dashService.channel"
+            class="action-btn create-btn"
+            [class.active]="dashService.create"
+            (click)="dashService.create = !dashService.create"
+            title="Create Channel">
+            <i class="icon-add">➕</i>
+          </button>
+        </div>
+      </div>
+      <div class="header-separator"></div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+      <div class="search-input-container">
+        <i class="search-icon">🔍</i>
+        <input 
+          type="text" 
+          class="search-input"
+          [placeholder]="dashService.channel ? 'Search conversations...' : 'Find a user...'"
+        />
+      </div>
+    </div>
+
+    <!-- Find Channel Panel -->
+    <div 
+      class="find-panel"
+      [class.visible]="dashService.find"
+      *ngIf="dashService.find">
+      <app-find-channel></app-find-channel>
+    </div>
+
+    <!-- Create Channel Panel -->
+    <div 
+      class="create-panel"
+      [class.visible]="dashService.create"
+      *ngIf="dashService.create">
+      <app-create-channel></app-create-channel>
+    </div>
+
+    <!-- Conversations List -->
+    <div class="conversations-section">
+      <div class="section-header">
+        <h3 class="section-title">
+          {{ dashService.channel ? 'Conversations' : 'Users' }}
+        </h3>
+        <span class="conversation-count">3</span>
+      </div>
+      <div class="conversations-container">
+        <app-conversation-list></app-conversation-list>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="chat-main">
+    <div class="messages-wrapper">
+      <app-messages></app-messages>
+    </div>
+  </div>
+
+  <!-- Members Panel -->
+  <div 
+    class="members-panel"
+    [class.visible]="dashService.members"
+    *ngIf="dashService.members">
+    <div class="members-header">
+      <h3 class="members-title">Members</h3>
+      <button class="close-members-btn">✕</button>
+    </div>
+    <div class="members-container">
+      <app-members-list></app-members-list>
+    </div>
+  </div>
 </div>
-<app-find-channel *ngIf="dashService.find" class="findChannel"></app-find-channel>
-<app-check-pass *ngIf="dashService.checkPass" class="checkPass"></app-check-pass>
-<div *ngIf="dashService.find || dashService.checkPass" class="overlay"></div>
+
+<!-- Modals -->
+<div class="modal-overlay" *ngIf="dashService.find || dashService.checkPass" (click)="closeModals()">
+  <app-find-channel 
+    *ngIf="dashService.find" 
+    class="modal-content find-modal"
+    (click)="$event.stopPropagation()">
+  </app-find-channel>
+  
+  <app-check-pass 
+    *ngIf="dashService.checkPass" 
+    class="modal-content password-modal"
+    (click)="$event.stopPropagation()">
+  </app-check-pass>
+  </div>
+</div>

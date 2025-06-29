@@ -1,42 +1,99 @@
-<div class="separator"></div>
-<div class="top">
-	<div class="main">
-		<img src="../../../../../../assets/images/transmitter_1.png" (click)="members()" *ngIf="chatService.selectedRoom !== null">
-		<div class="header" [ngClass]="{'hidden': placeholderText === null}">
-			<div class="username" >
-						<input 
-						[ngClass]="{'hidden': !chatService.selectedRoomOwner && !chatService.selectedRoomAdmin}"
-						class="channelName" type="text" #inputElement [placeholder]="placeholderText"
-						[(ngModel)]="inputText" (focus)="onFocus()" (blur)="validerPlaceholder(inputElement)"
-						(keydown.enter)="validerPlaceholderEnter(inputElement)" (input)="onInput(inputElement)">
-						<h1 *ngIf="!chatService.selectedRoomOwner && !chatService.selectedRoomAdmin" >{{placeholderText}}</h1>
-			</div>
-		</div>
-	</div>
-	<div class="shortcut">
-		<app-add-users class="addUser" *ngIf="dashService.addUsers"></app-add-users>
-		<img src="../../../../../../assets/images/add-user.png" class="enableAddUser" style="cursor: pointer;" *ngIf="chatService.selectedRoomOwner || chatService.selectedRoomAdmin">
-		<img class="members" src="../../../../../../assets/images/users.png" style="cursor: pointer;" (click)="members()" *ngIf="chatService.selectedRoom !== null">
-		<app-channel-option class="channelOption" *ngIf="chatService.selectedRoom !== null"></app-channel-option>
-	</div>
-	<div #messageList class="message">
-		<div class="messages" *ngFor="let message of (messages$ | async)" [ngClass]="{'myMessage': chatService.currentUser.id === message.user.id}">
-			<img class="messagePicture" [src]="hostname + message.user.profilPic" *ngIf="chatService.currentUser.id !== message.user.id && message.user.profilPic">
-			<img class="messagePicture" src="../../../../../assets/images/astronaut.png" *ngIf="chatService.currentUser.id !== message.user.id && !message.user.profilPic">
-			<div class="content" [ngClass]="{'myContent': chatService.currentUser.id === message.user.id}">
-						<strong class="usernameMessage"  >{{message.user.username}}</strong>
-							<p class="text" *ngIf="!message.gameRoom">{{message.text}}</p>
-							<button *ngIf="message.gameRoom && chatService.currentUser.id !== message.user.id" (click)="joinGame(message.gameRoom)" >Accept invite to Game</button>
-							<p class="confirm" *ngIf="message.gameRoom && chatService.currentUser.id === message.user.id">Invitation Sent</p>
-			</div>
-			<img class="messagePicture" [src]="hostname + message.user.profilPic" *ngIf="chatService.currentUser.id === message.user.id && message.user.profilPic">
-			<img class="messagePicture" src="../../../../../assets/images/astronaut.png" *ngIf="chatService.currentUser.id === message.user.id && !message.user.profilPic">
-		</div>
-	</div>
-	<form class="input" (submit)="onSubmit()" *ngIf="chatService.selectedRoom !== null">
-		<input placeholder="Send Message..." [ngModelOptions]="{standalone: true}" autofocus [(ngModel)]="message" required>
-		<img src="../../../../../../assets/images/rocket.png" (click)="onSubmit()" *ngIf="message" class="send">
-		<img src="../../../../../../assets/images/rocket.png" *ngIf="!message">
-	</form>
+<div class="messages-container">
+  <!-- Chat Header -->
+  <div class="chat-header">
+    <div class="header-main">
+      <img src="../../../../../../assets/images/transmitter_1.png" 
+           (click)="members()" 
+           *ngIf="chatService.selectedRoom !== null"
+           class="room-avatar">
+      
+      <div class="header-info" [ngClass]="{'hidden': placeholderText === null}">
+        <div class="room-name">
+          <input 
+            [ngClass]="{'hidden': !chatService.selectedRoomOwner && !chatService.selectedRoomAdmin}"
+            class="channelName" 
+            type="text" 
+            #inputElement 
+            [placeholder]="placeholderText"
+            [(ngModel)]="inputText" 
+            (focus)="onFocus()" 
+            (blur)="validerPlaceholder(inputElement)"
+            (keydown.enter)="validerPlaceholderEnter(inputElement)" 
+            (input)="onInput(inputElement)">
+          <h1 *ngIf="!chatService.selectedRoomOwner && !chatService.selectedRoomAdmin">{{placeholderText}}</h1>
+        </div>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <app-add-users class="addUser" *ngIf="dashService.addUsers"></app-add-users>
+      <img src="../../../../../../assets/images/add-user.png" 
+           class="action-btn" 
+           *ngIf="chatService.selectedRoomOwner || chatService.selectedRoomAdmin"
+           title="Add User">
+      <img class="action-btn" 
+           src="../../../../../../assets/images/users.png" 
+           (click)="members()" 
+           *ngIf="chatService.selectedRoom !== null"
+           title="Members">
+      <app-channel-option class="channelOption" *ngIf="chatService.selectedRoom !== null"></app-channel-option>
+    </div>
+  </div>
+
+  <!-- Messages Area -->
+  <div #messageList class="messages-area">
+    <div class="message-item" 
+         *ngFor="let message of (messages$ | async)" 
+         [ngClass]="{'message-mine': chatService.currentUser.id === message.user.id}">
+      
+      <!-- Other user's avatar (left side) -->
+      <img class="message-avatar" 
+           [src]="hostname + message.user.profilPic" 
+           *ngIf="chatService.currentUser.id !== message.user.id && message.user.profilPic">
+      <img class="message-avatar" 
+           src="../../../../../assets/images/astronaut.png" 
+           *ngIf="chatService.currentUser.id !== message.user.id && !message.user.profilPic">
+      
+      <!-- Message content -->
+      <div class="message-content" 
+           [ngClass]="{'message-content-mine': chatService.currentUser.id === message.user.id}">
+        <strong class="message-username">{{message.user.username}}</strong>
+        <p class="message-text" *ngIf="!message.gameRoom">{{message.text}}</p>
+        <button *ngIf="message.gameRoom && chatService.currentUser.id !== message.user.id" 
+                (click)="joinGame(message.gameRoom)" 
+                class="game-invite-btn">Accept invite to Game</button>
+        <p class="game-invite-sent" 
+           *ngIf="message.gameRoom && chatService.currentUser.id === message.user.id">Invitation Sent</p>
+      </div>
+      
+      <!-- My avatar (right side) -->
+      <img class="message-avatar" 
+           [src]="hostname + message.user.profilPic" 
+           *ngIf="chatService.currentUser.id === message.user.id && message.user.profilPic">
+      <img class="message-avatar" 
+           src="../../../../../assets/images/astronaut.png" 
+           *ngIf="chatService.currentUser.id === message.user.id && !message.user.profilPic">
+    </div>
+  </div>
+
+  <!-- Message Input -->
+  <form class="message-input" (submit)="onSubmit()" *ngIf="chatService.selectedRoom !== null">
+    <input placeholder="Send Message..." 
+           [ngModelOptions]="{standalone: true}" 
+           autofocus 
+           [(ngModel)]="message" 
+           required
+           class="input-field">
+    <img src="../../../../../../assets/images/rocket.png" 
+         (click)="onSubmit()" 
+         *ngIf="message" 
+         class="send-btn active">
+    <img src="../../../../../../assets/images/rocket.png" 
+         *ngIf="!message"
+         class="send-btn">
+  </form>
+</div>
+
 <div>
-<app-change-pass class="changePass" *ngIf="dashService.changePass"></app-change-pass>
+  <app-change-pass class="changePass" *ngIf="dashService.changePass"></app-change-pass>
+</div>

@@ -25,7 +25,7 @@
   }
   
   &-content {
-    // Main content area
+    position: relative; // Add minimal content to avoid empty rule
   }
   
   &-footer {

@@ -1,39 +1,88 @@
-<div class="general">
-	<div class="nav_base">
-		<div class="logo-title">
-			<a href="#" class="nasa-font">SPACE PONG</a>
-		</div>
-	</div>
-	<div class="img">
-		<img href="#" class="rocket" src="../../../../assets/images/rocket.png" alt="rocket">
-	</div>
-	<mat-card>
-		<img href="#" class="astronaut" src="../../../../assets/images/astronaut_white_user_def.png" alt="rocket">
-		<mat-card-title>Register</mat-card-title>
+<div class="register-page">
+  <header class="nav-header">
+    <div class="logo-container">
+      <a [routerLink]="['/home']" class="logo-title gradient-text">SPACE PONG</a>
+    </div>
+  </header>
 
-		<mat-card-content>
-			<form [formGroup]="form" (ngSubmit)="register()">
+  <main class="register-main">
+    <app-card class="register-card slide-up" variant="game">
+      <div class="register-content">
+        <div class="card-header">
+          <img src="../../../../assets/images/astronaut_white_user_def.png" alt="Astronaut" class="avatar glow-pulse">
+          <h2 class="card-title">Create Your Account</h2>
+          <p class="card-subtitle">Join the cosmic pong federation</p>
+        </div>
 
-					<input type="email" matInput placeholder="Email" formControlName="email" [(ngModel)]="mail">
-					<mat-error *ngIf="email.touched && email.hasError('required')">Email is required</mat-error>
-					<mat-error *ngIf="email.touched && email.hasError('email')">Email must be valid</mat-error>
-					<input type="text" matInput placeholder="Username" formControlName="username" >
-					<mat-error *ngIf="username.touched && username.hasError('required')">Username is required</mat-error>
-					<input type="text" matInput placeholder="Password" formControlName="password" >
-					<mat-error *ngIf="password.touched && password.hasError('required')">Password is required</mat-error>
-					<input type="text" matInput placeholder="Password Confirm" formControlName="passwordConfirm">
-					<mat-error *ngIf="passwordConfirm.touched && form.hasError('passwordsNotMatching')">
-						Password are not matching
-					</mat-error>
-					<mat-hint *ngIf="!form.valid"><small>Please fill all needed information</small></mat-hint>
-				<div class="button">
-					<button mat-button type="submit" [disabled]="!form.valid || username.value.length > 8" >SIGN IN</button>
-				</div>
+        <form class="register-form" [formGroup]="form" (ngSubmit)="register()">
+          <div class="form-grid">
+            <app-input
+              label="Email Address"
+              type="email"
+              placeholder="your.email@galaxy.space"
+              formControlName="email"
+              size="lg"
+              [error]="email.touched && email.hasError('required') ? 'Email is required' : 
+                       email.touched && email.hasError('email') ? 'Email must be valid' : undefined"
+            ></app-input>
 
-			</form>
-      <label for="fileUpload">Add a profile image ?</label>
-      <input class="upload" type="file" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" (change)="onFileSelected()">
-		</mat-card-content>
+            <app-input
+              label="Username"
+              type="text"
+              placeholder="Choose your call sign"
+              formControlName="username"
+              size="lg"
+              [error]="username.touched && username.hasError('required') ? 'Username is required' : undefined"
+            ></app-input>
 
-	</mat-card>
+            <app-input
+              label="Password"
+              type="password"
+              placeholder="Create a secure password"
+              formControlName="password"
+              size="lg"
+              [error]="password.touched && password.hasError('required') ? 'Password is required' : undefined"
+            ></app-input>
+
+            <app-input
+              label="Confirm Password"
+              type="password"
+              placeholder="Confirm your password"
+              formControlName="passwordConfirm"
+              size="lg"
+              [error]="passwordConfirm.touched && form.hasError('passwordsNotMatching') ? 'Passwords do not match' : undefined"
+            ></app-input>
+          </div>
+
+          <div class="avatar-upload-section">
+            <label for="fileUpload" class="upload-label">Choose Your Avatar</label>
+            <div class="upload-area">
+              <input class="upload-input" type="file" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" (change)="onFileSelected()">
+              <span class="upload-placeholder">Click to select an image</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <app-button
+              variant="primary"
+              size="lg"
+              type="submit"
+              [disabled]="!form.valid || username.value.length > 8"
+              [loading]="isLoading"
+            >
+              <i class="fas fa-user-plus"></i>
+              Register & Launch
+            </app-button>
+          </div>
+        </form>
+
+        <div class="login-prompt">
+          <span>Already have an account?</span>
+          <a [routerLink]="['../login']" class="login-link">Log In</a>
+        </div>
+      </div>
+    </app-card>
+  </main>
+
+  <div class="stars-bg"></div>
 </div>

@@ -1,34 +1,59 @@
-button {
-	width: 100px;
-	background: #C32F76;
-	border: none;
-	border-radius: 3px;
-	color: white;
-	padding: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	cursor: pointer;
+// Avatar Component - SpacePong Design System
+
+.avatar-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  
+  .avatar-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
 }
 
-.submit button:disabled {
-	color: #989aa2;
-	background: #AB3B71;
-	cursor: default;
-}
-
-.submit button:enabled {
-	cursor: pointer;
-}
-
-input {
-	background: rgba(217, 217, 217, 0.25);
-	border: none;
-	color: #989aa2;
-	border-radius: 3px;
-	padding: 3px;
-}
-
-input:focus {
-	outline: none;
-	color: white;
+.file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  
+  .file-input {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+  
+  .file-input-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    color: var(--text-secondary);
+    font-family: var(--font-family-secondary);
+    backdrop-filter: blur(15px);
+    
+    &:hover {
+      background: var(--glass-bg-hover);
+      border-color: var(--neon-cyan);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 255, 255, 0.2);
+    }
+    
+    .file-input-icon {
+      font-size: var(--font-size-lg);
+    }
+    
+    .file-input-text {
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+    }
+  }
 }

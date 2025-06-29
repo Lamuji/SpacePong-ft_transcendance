@@ -1,50 +1,219 @@
 <app-nav-bar></app-nav-bar>
-<div class="container">
-  <div class="profil" *ngIf="(user$ | async) as user">
-    <h1>Profil</h1>
-    <!-- <img *ngIf="user.profilPic" [src]="hostname + user.profilPic" alt="profilePicture">
-    <img class="profilPic" *ngIf="!user.profilPic" src="../../../../../assets/images/astronaut.png" alt="astronaut"> -->
-    <p>Set new profile image</p>
-    <app-avatar (avatarUpdated)="updateAvatar()"></app-avatar>
-    <button (click)="changeUsername()">Change username</button>
-	<button (click)="goTo2FA()">Manage 2FA</button>
-    <div class="username-popup" *ngIf="usernamePopup">
-      <button class="close-btn" (click)="close()">X</button>
-      <h1>Please enter new username</h1>
-      <input type="text" placeholder="NEW USERNAME" [(ngModel)]="newO" >
-      <button class="changes"[disabled]="!newO || newO.length > 8"  (click)="closePopup(newO)">SAVE CHANGES</button>
-    </div>
+<div class="main-layout">
+  <div class="main-layout-content">
+    <div class="settings-page">
+  <div class="page-header">
+    <h1 class="page-title gradient-text">Paramètres</h1>
   </div>
-  <div class="skin" >
-    <h1>Skin</h1>
-
-    <div class="ball">
-      <div class="ball_skin_container">
-        <div class="scrolable-content">
-          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/jupiter.png">
-          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/planet-red.png">
-          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/planet.png">
-          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/pluto.png">
-          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/neptune.png">
-          <img (click)="retrieveBallSkin($event)" src="../../../../../assets/images/ball/earth.png">
+  
+  <div class="settings-container">
+    <!-- Section Profil -->
+    <app-card title="Profil" variant="game" class="profile-settings-card" *ngIf="(user$ | async) as user">
+      <div class="profile-section">
+        <div class="avatar-section">
+          <div class="current-avatar">
+            <img 
+              *ngIf="user.profilPic" 
+              [src]="hostname + user.profilPic" 
+              alt="Photo de profil"
+              class="profile-image"
+            >
+            <img 
+              *ngIf="!user.profilPic" 
+              src="../../../../../assets/images/astronaut.png" 
+              alt="Avatar par défaut"
+              class="profile-image"
+            >
+          </div>
+          
+          <div class="avatar-controls">
+            <h3 class="section-subtitle">Changer la photo de profil</h3>
+            <app-avatar (avatarUpdated)="updateAvatar()"></app-avatar>
+          </div>
+        </div>
+        
+        <div class="profile-actions">
+          <app-button variant="secondary" size="md" (clicked)="changeUsername()">
+            <span class="button-icon">✏️</span>
+            Modifier nom d'utilisateur
+          </app-button>
+          
+          <app-button variant="primary" size="md" (clicked)="goTo2FA()">
+            <span class="button-icon">🔒</span>
+            Gérer 2FA
+          </app-button>
+        </div>
+        
+        <!-- Popup de modification username -->
+        <div *ngIf="usernamePopup" class="username-popup glass">
+          <div class="popup-content">
+            <button class="close-btn" (click)="close()">✕</button>
+            <h3 class="popup-title">Nouveau nom d'utilisateur</h3>
+            <div class="form-group">
+              <input 
+                type="text" 
+                placeholder="Nouveau nom d'utilisateur" 
+                [(ngModel)]="newO"
+                class="form-input"
+                maxlength="8"
+              >
+            </div>
+            <div class="popup-actions">
+              <app-button variant="ghost" (clicked)="close()">
+                Annuler
+              </app-button>
+              <app-button 
+                variant="primary" 
+                [disabled]="!newO || newO.length > 8" 
+                (clicked)="closePopup(newO)"
+              >
+                Sauvegarder
+              </app-button>
+            </div>
+          </div>
         </div>
       </div>
-      <ngx-colors ngx-colors-trigger [(ngModel)]="colorBall" (ngModelChange)="onColorBallChange($event)"></ngx-colors>
-    </div>
+    </app-card>
 
-    <div class="paddle">
-      <div ngx-colors-trigger [(ngModel)]="colorPad" [style.background-color]="colorPad" (ngModelChange)="onPaddleColorChange($event)" class="paddle_color_container"></div>
-      <div class="paddle_skin_container">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/black_star.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/halo.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/New Project.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/orangePaddle.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/rose_tapette.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/spacePong.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/stars.png">
-        <img (click)="retrievePaddleSkin($event)" src="../../../../../assets/images/paddle/whiteP.png">
+    <!-- Section Apparence -->
+    <app-card title="Personnalisation" variant="default" class="skin-settings-card">
+      <div class="skin-section">
+        <!-- Balle -->
+        <div class="customization-group">
+          <h3 class="section-subtitle">
+            <span class="subtitle-icon">⚪</span>
+            Apparence de la balle
+          </h3>
+          
+          <div class="ball-customization">
+            <div class="skin-gallery">
+              <div class="skin-grid">
+                <img 
+                  (click)="retrieveBallSkin($event)" 
+                  src="../../../../../assets/images/ball/jupiter.png"
+                  class="skin-option"
+                  alt="Jupiter"
+                >
+                <img 
+                  (click)="retrieveBallSkin($event)" 
+                  src="../../../../../assets/images/ball/planet-red.png"
+                  class="skin-option"
+                  alt="Planète rouge"
+                >
+                <img 
+                  (click)="retrieveBallSkin($event)" 
+                  src="../../../../../assets/images/ball/planet.png"
+                  class="skin-option"
+                  alt="Planète"
+                >
+                <img 
+                  (click)="retrieveBallSkin($event)" 
+                  src="../../../../../assets/images/ball/pluto.png"
+                  class="skin-option"
+                  alt="Pluton"
+                >
+                <img 
+                  (click)="retrieveBallSkin($event)" 
+                  src="../../../../../assets/images/ball/neptune.png"
+                  class="skin-option"
+                  alt="Neptune"
+                >
+                <img 
+                  (click)="retrieveBallSkin($event)" 
+                  src="../../../../../assets/images/ball/earth.png"
+                  class="skin-option"
+                  alt="Terre"
+                >
+              </div>
+            </div>
+            
+            <div class="color-picker-section">
+              <label class="color-label">Couleur personnalisée :</label>
+              <ngx-colors 
+                ngx-colors-trigger 
+                [(ngModel)]="colorBall" 
+                (ngModelChange)="onColorBallChange($event)"
+                class="color-picker"
+              ></ngx-colors>
+            </div>
+          </div>
+        </div>
+
+        <!-- Raquette -->
+        <div class="customization-group">
+          <h3 class="section-subtitle">
+            <span class="subtitle-icon">🏓</span>
+            Apparence de la raquette
+          </h3>
+          
+          <div class="paddle-customization">
+            <div class="color-picker-section">
+              <label class="color-label">Couleur :</label>
+              <div 
+                ngx-colors-trigger 
+                [(ngModel)]="colorPad" 
+                [style.background-color]="colorPad" 
+                (ngModelChange)="onPaddleColorChange($event)" 
+                class="paddle-color-preview"
+              ></div>
+            </div>
+            
+            <div class="skin-gallery">
+              <div class="skin-grid">
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/black_star.png"
+                  class="skin-option"
+                  alt="Étoile noire"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/halo.png"
+                  class="skin-option"
+                  alt="Halo"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/New Project.png"
+                  class="skin-option"
+                  alt="Nouveau projet"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/orangePaddle.png"
+                  class="skin-option"
+                  alt="Raquette orange"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/rose_tapette.png"
+                  class="skin-option"
+                  alt="Raquette rose"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/spacePong.png"
+                  class="skin-option"
+                  alt="Space Pong"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/stars.png"
+                  class="skin-option"
+                  alt="Étoiles"
+                >
+                <img 
+                  (click)="retrievePaddleSkin($event)" 
+                  src="../../../../../assets/images/paddle/whiteP.png"
+                  class="skin-option"
+                  alt="Raquette blanche"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
+    </app-card>
     </div>
   </div>
 </div>
