@@ -227,7 +227,7 @@ export class UserService {
 			user.friends = [];
 		const existingFriend = user.friends.find(friend => friend.id === newFriend.id);
   		if (existingFriend) {
-			throw new Error(`Friend of id : ${newFriend.id} is already on friend list.`);			return;
+			throw new HttpException(`Friend already added`, HttpStatus.CONFLICT);
 		}
 		user.friends.push(friend);
 		await this.userRepository.save(user);

@@ -5,16 +5,10 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./api
-      # Only build development stage from Dockerfile
       target: development
-    # Mount our host dir to the docker container
-    # Mount api directory (./api) to (:) docker container (/ft_transcendence/src/app)
-    # Reflect File changes from host to container
     volumes:
-      - ./api:/ft_transcendence/src/app
-      - /ft_transcendence/src/app/node_modules
-    # RUN in debug mode: npm run start:debug --> Also start your vscode debugger
-    # Run in dev mode: npm run start:dev
+      - ./api:/app
+      - /app/node_modules
     command: npm run start:debug
     depends_on: 
       - postgres
@@ -22,7 +16,7 @@ services:
       - .env
     environment:
       DATABASE_URL: ${DATABASE_URL}
-      NODE_ENV: ${NODE_ENV}
+      NODE_ENV: development
       JWT_SECRET: ${JWT_SECRET}
       PORT: ${PORT}
       ENCRYPT_PASS: ${ENCRYPT_PASS}
@@ -32,6 +26,7 @@ services:
       - 3000:3000
       - 3001:3001
       - 9229:9229
+    restart: unless-stopped
   
   # Our Angular Frontend
   frontend:
@@ -66,5 +61,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - 35000:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
 
  
